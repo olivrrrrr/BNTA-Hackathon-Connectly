@@ -1,3 +1,4 @@
+import { server } from 'mirage';
 import React, { useContext } from 'react';
 
 import {
@@ -11,6 +12,13 @@ import Header from './Components/Header';
 import Section from './Components/Section';
 import SliderToggle from './Components/SliderToggle';
 import { ThemeContext } from './Context/ThemeContext';
+import MockServer from './mocks/MockServer';
+
+if(window.server) {
+  server.shutdown()
+}
+
+window.server = MockServer;
 
 const App = () => {
   const { toggle } = useContext(ThemeContext);
