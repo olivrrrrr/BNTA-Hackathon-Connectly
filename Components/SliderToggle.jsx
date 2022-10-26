@@ -17,12 +17,13 @@ export default function SliderToggle() {
             <SwitchToggle
                 switchOn={toggle}
                 circleColorOff="grey"
-                circleColorOn="#4169E1"
+                circleColorOn="grey"
                 backgroundColorOff="white"
-                backgroundColorOn="white"
+                backgroundColorOn="tomato"
                 onPress={toggleTheme}
                 value={toggle}
                 containerStyle={{
+                    marginTop: 5,
                     marginBottom: 5,
                     width: 55,
                     height: 28,

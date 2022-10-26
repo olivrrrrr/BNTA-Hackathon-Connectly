@@ -1,58 +1,77 @@
 import React, { useContext } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 
-import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import HomeContainer from './Containers/home-container';
+import SearchContainer from './Containers/search-container';
+import SettingsContainer from './Containers/settings-container';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Header from './Components/Header';
-import Section from './Components/Section';
-import SliderToggle from './Components/SliderToggle';
 import { ThemeContext } from './Context/ThemeContext';
 
 const App = () => {
+  const Tab = createBottomTabNavigator();
+
+  const homeName = "Home";
+  const searchName = "search";
+  const settingsName = "settings";
+
   const { toggle } = useContext(ThemeContext);
 
-  const themeStyles = {
-    backgroundColor: toggle ? '#333' : '#CCC',
-    color: toggle ? '#CCC' : '#333',
-}
+  const MyTheme = {
+    colors: {
+      background: toggle ? '#333' : '#CCC',
+      card: toggle ? '#333' : '#CCC',
+      border: toggle ? '#333' : '#CCC',
+      text: toggle ? '#CCC' : '#333',
+      notification: 'rgb(255, 69, 58)',
+    },
+  };
 
   return (
-    <SafeAreaView style={[styles.appContainer, themeStyles]}>
-        <ScrollView>
-            <SliderToggle />
-            <Header />
-            <View>
-              <Section title={'Title 1'} description={'Description 1'}/>
-              <Section title={'Title 2'} description={'Description 2'}/>
-              <Section title={'Title 3'} description={'Description 3'}/>
-              <Section title={'Title 4'} description={'Description 4'}/>
-            </View>
-        </ScrollView>
-    </SafeAreaView>
-  );
-};
+    <NavigationContainer theme={MyTheme}>
+      <Tab.Navigator
+        initialRouteName={homeName}
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            let rn = route.name;
 
-const styles = StyleSheet.create({
-  appContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+            if (rn === homeName) {
+              iconName = focused ? 'home' : 'home-outline';
+              color = focused ? 'tomato' : color;
+            } else if (rn === searchName) {
+              iconName = focused ? 'search' : 'search-outline';
+              color = focused ? 'tomato' : color;
+            } else if (rn === settingsName) {
+              iconName = focused ? 'settings' : 'settings-outline';
+              color = focused ? 'tomato' : color;
+            }
+
+            return <Ionicons name={iconName} size={size} color={color} />
+          },
+
+          tabBarStyle: {
+            height: 90,
+            paddingHorizontal: 5,
+            position: 'absolute',
+          },
+
+          tabBarActiveTintColor: 'tomato',
+
+
+          headerShown: false
+
+        })}
+      >
+
+        <Tab.Screen name={homeName} component={HomeContainer} />
+        <Tab.Screen name={searchName} component={SearchContainer} />
+        <Tab.Screen name={settingsName} component={SettingsContainer} />
+
+      </Tab.Navigator>
+    </NavigationContainer>
+  )
+};
 
 export default App;
