@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import {
     Text,
     View,
@@ -6,9 +6,13 @@ import {
 } from 'react-native';
 
 import { ThemeContext } from '../Context/ThemeContext';
+import { getAllUsers, getAllEvents, getEventById, getUserById } from '../Adaptors/BackendAdaptor';
+
 
 export default function Section({ title, description }) {
 
+    const [users, setUsers] = useState([])
+    const [events, setEvents] = useState([])
     const { toggle } = useContext(ThemeContext);
 
     const themeStyles = {
@@ -17,7 +21,17 @@ export default function Section({ title, description }) {
         borderColor: toggle ? '#CCC' : '#333',
     }
 
-    return (
+    useEffect(() => {
+        getAllUsers().then((json) => {
+            setUsers(json.users);
+        })
+        getEventById(1).then((json) => {
+            setEvents(json.events);
+            console.log(events);
+        })
+    }, [])
+
+    return (users.length !== 0 && events.length !== 0) ? (
         <View style={[themeStyles, styles.sectionContainer]}>
             <Text
                 style={[themeStyles, styles.sectionTitle]}>
@@ -27,7 +41,11 @@ export default function Section({ title, description }) {
                 style={[themeStyles, styles.sectionDescription]}>
                 {description}
             </Text>
+            <Text>{users[0].email}, {events.id}</Text>
         </View>
+    ) :
+    (
+        <Text>Loading..</Text>
     );
 }
 
