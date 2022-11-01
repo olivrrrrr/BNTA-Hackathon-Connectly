@@ -27,5 +27,26 @@ const getUserById = (id) => {
     )
 }
 
+const postUser = (user) => {
+    const requestOptions = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(user)
+    }
 
-export {getAllUsers, getAllEvents, getEventById, getUserById}
+    return(fetch('api/v1/users', requestOptions)
+    .then(res => res.json()))
+}
+
+const postEvent = (event) => {
+    const requestOptions = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(event)
+    }
+
+    return(fetch('api/v1/events', requestOptions)
+    .then(res => res.json()))
+}
+
+export {getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent}
