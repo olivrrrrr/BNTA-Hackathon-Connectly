@@ -10,7 +10,9 @@ const mockServer = () => {
       },
       routes() {
         //    this.namespace = "api"
-           
+           let userId = 4;
+           let eventId = 3;
+
            this.get("/api/v1/events", (schema) => {
                 return schema.events.all();
             });
@@ -22,6 +24,16 @@ const mockServer = () => {
             })
             this.get("/api/v1/users/:id", (schema, req) => {
                 return schema.users.find(req.params.id);
+            })
+            this.post("/api/v1/events", (schema, req) => {
+                let attrs = JSON.parse(req.requestBody)
+                attrs.id = eventId++
+                return schema.events.create(attrs)
+            })
+            this.post("/api/v1/users", (schema, req) => {
+                let attrs = JSON.parse(req.requestBody)
+                attrs.id = userId++
+                return schema.users.create(attrs)
             })
         },
 

@@ -6,7 +6,9 @@ import {
 } from 'react-native';
 
 import { ThemeContext } from '../Context/ThemeContext';
-import { getAllUsers, getAllEvents, getEventById, getUserById } from '../Adaptors/BackendAdaptor';
+import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent } from '../Adaptors/BackendAdaptor';
+import User from '../Classes/User'
+import Event from '../Classes/Event'
 
 
 export default function Section({ title, description }) {
@@ -22,13 +24,23 @@ export default function Section({ title, description }) {
     }
 
     useEffect(() => {
-        getAllUsers().then((json) => {
-            setUsers(json.users);
-        })
-        getEventById(1).then((json) => {
-            setEvents(json.events);
-            console.log(events);
-        })
+        let newUser = new User('4', 'Luke', 'software engineer', 'luke@lukemail.com', ['coding'], [1]);
+        let newEvent = new Event('3','hi','hi', [3], [4], 'start', 'end', ['coding'], true, 5, false)
+        postUser(newUser)
+            .then(() => {
+                getAllUsers().then((json) => {
+                    setUsers(json.users);
+                    console.log(users)
+                })
+            })
+
+        postEvent(newEvent)
+            .then(() => {
+                getEventById(3).then((json) => {
+                    setEvents(json.events);
+                    console.log(events);
+                })
+            })
     }, [])
 
     return (users.length !== 0 && events.length !== 0) ? (
@@ -41,12 +53,12 @@ export default function Section({ title, description }) {
                 style={[themeStyles, styles.sectionDescription]}>
                 {description}
             </Text>
-            <Text>{users[0].email}, {events.id}</Text>
+            <Text>{users[3].email}, {events.id}</Text>
         </View>
     ) :
-    (
-        <Text>Loading..</Text>
-    );
+        (
+            <Text>Loading..</Text>
+        );
 }
 
 const styles = StyleSheet.create({
