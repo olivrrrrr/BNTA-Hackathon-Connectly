@@ -8,6 +8,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { ThemeContext } from './Context/ThemeContext';
+import {mockServer} from './Mocks/MockServer';
+
+if(window.server) {
+  server.shutdown()
+}
+
+window.server = mockServer();
 
 const App = () => {
   const Tab = createBottomTabNavigator();
