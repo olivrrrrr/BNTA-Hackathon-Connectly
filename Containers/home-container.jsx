@@ -25,9 +25,10 @@ export default function HomeContainer({ navigation }) {
                 <SliderToggle />
                 <Header />
                 <View>
-                    <Section title={'Title 1'} description={'Description 1'} />
-                    <Section title={'Title 2'} description={'Description 2'} />
-                    <Section title={'Title 3'} description={'Description 3'} />
+                    <Section
+                        title={'Upcoming Events'}
+                    />
+                    <Section title={'My Teams Events'} description={'Description 2'} />
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     sectionDescription: {
-        marginTop: 8,
+        marginTop: 6,
         fontSize: 18,
         fontWeight: '400',
     },
