@@ -8,9 +8,9 @@ import {
 
 import { ThemeContext } from '../Context/ThemeContext';
 import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent } from '../Adaptors/BackendAdaptor';
-import IndividualCategory from './IndividualCategory';
 import User from '../Classes/User'
 import Event from '../Classes/Event'
+import SpecialIndividualEvent from './SpecialIndividualEvent';
 
 
 export default function Section(props) {
@@ -58,17 +58,12 @@ export default function Section(props) {
                 style={[themeStyles, styles.sectionTitle]}>
                 {title}
             </Text>
-            <View style={{ height: 130, marginTop: 10 }}>
+            <View style={{ height: 150, marginTop: 10 }}>
                 <ScrollView horizontal={true}>
-                    <IndividualCategory
+                    <SpecialIndividualEvent
                         imageUri={require('../Images/townhall.jpeg')}
                         users={users}
                         event={events[0]}
-                    />
-                    <IndividualCategory
-                        imageUri={require('../Images/football.webp')}
-                        users={users}
-                        event={events[1]}
                     />
                 </ScrollView>
 

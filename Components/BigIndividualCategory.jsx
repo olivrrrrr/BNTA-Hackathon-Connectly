@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { ThemeContext } from '../Context/ThemeContext';
 
-export default function IndividualCategory (props) {
+export default function BigIndividualCategory (props) {
     const {event, imageUri} = props;
     const { toggle } = useContext(ThemeContext);
     const themeStyles = {
@@ -28,15 +28,15 @@ export default function IndividualCategory (props) {
 
 const styles = StyleSheet.create({
     categoryContainer: {
-        height: 130,
-        width: 130,
+        height: 170,
+        width: 170,
         marginRight: 10, 
         borderRadius: 15
     },
     categoryText: {
         paddingLeft: 10,
         position: 'absolute',
-        top:100,
+        bottom: 20,
         fontWeight: 'bold',
     }
 });

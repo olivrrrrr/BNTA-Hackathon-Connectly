@@ -10,7 +10,7 @@ export default function Header() {
     const { toggle } = useContext(ThemeContext);
 
     const themeStyles = {
-        backgroundColor: toggle ? '#333' : '#CCC',
+        backgroundColor: toggle ? '#333' : '#FFFFFF',
         color: toggle ? '#CCC' : '#333',
         borderColor: toggle ? '#CCC' : '#333',
     }

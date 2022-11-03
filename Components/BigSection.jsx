@@ -8,12 +8,12 @@ import {
 
 import { ThemeContext } from '../Context/ThemeContext';
 import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent } from '../Adaptors/BackendAdaptor';
-import IndividualCategory from './IndividualCategory';
+import BigIndividualCategory from './BigIndividualCategory';
 import User from '../Classes/User'
 import Event from '../Classes/Event'
 
 
-export default function Section(props) {
+export default function BigSection(props) {
     const { title, description } = props;
 
     const [users, setUsers] = useState([]);
@@ -54,18 +54,14 @@ export default function Section(props) {
 
     return (users.length !== 0 && events.length !== 0) ? (
         <View style={[themeStyles, styles.sectionContainer]}>
-            <Text
-                style={[themeStyles, styles.sectionTitle]}>
-                {title}
-            </Text>
-            <View style={{ height: 130, marginTop: 10 }}>
+            <View style={{ height: 170 }}>
                 <ScrollView horizontal={true}>
-                    <IndividualCategory
+                    <BigIndividualCategory
                         imageUri={require('../Images/townhall.jpeg')}
                         users={users}
                         event={events[0]}
                     />
-                    <IndividualCategory
+                    <BigIndividualCategory
                         imageUri={require('../Images/football.webp')}
                         users={users}
                         event={events[1]}

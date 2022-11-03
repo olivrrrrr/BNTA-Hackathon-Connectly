@@ -9,26 +9,27 @@ import {
 
 import SliderToggle from '../Components/SliderToggle';
 import { ThemeContext } from '../Context/ThemeContext';
-import Header from '../Components/Header';
+import BigSection from '../Components/BigSection';
 import Section from '../Components/Section';
+import SpecialSection from '../Components/SpecialSection';
 
 export default function HomeContainer({ navigation }) {
     const { toggle } = useContext(ThemeContext);
 
     const themeStyles = {
-        backgroundColor: toggle ? '#333' : '#CCC',
+        backgroundColor: toggle ? '#333' : '#FFFFFF',
         color: toggle ? '#CCC' : '#333',
     }
     return (
         <SafeAreaView style={[styles.appContainer, themeStyles]}>
             <ScrollView>
                 <SliderToggle />
-                <Header />
+                <BigSection/>
                 <View>
                     <Section
-                        title={'Upcoming Events'}
+                        title={'My Interests'}
                     />
-                    <Section title={'My Teams Events'} description={'Description 2'} />
+                    <SpecialSection title={'Special Section'}/>
                 </View>
             </ScrollView>
         </SafeAreaView>

@@ -7,18 +7,13 @@ export default function SliderToggle() {
 
     const { toggle, toggleTheme } = useContext(ThemeContext);
 
-    const themeStyles = {
-        backgroundColor: toggle ? '#333' : '#CCC',
-        color: toggle ? '#CCC' : '#333',
-    }
-
     return (
         <View style={styles.container}>
             <SwitchToggle
                 switchOn={toggle}
-                circleColorOff="grey"
-                circleColorOn="grey"
-                backgroundColorOff="white"
+                circleColorOff="white"
+                circleColorOn="white"
+                backgroundColorOff="grey"
                 backgroundColorOn="tomato"
                 onPress={toggleTheme}
                 value={toggle}
