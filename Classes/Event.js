@@ -1,5 +1,5 @@
 class Event {
-    constructor(id, title, description, attendees, organisers, startDate, endDate, tags, wheelchairAccessible, cost, isDrinking) {
+    constructor(id, title, description, attendees, organisers, startDate, endDate, tags, wheelchairAccessible, cost, isDrinking, imageURL) {
         this.id = id,
         this.title = title,
         this.description = description,
@@ -10,7 +10,8 @@ class Event {
         this.tags = tags,
         this.wheelchairAccessible = wheelchairAccessible,
         this.cost = cost,
-        this.isDrinking = isDrinking
+        this.isDrinking = isDrinking,
+        this.imageURL = imageURL
     }
 }
 

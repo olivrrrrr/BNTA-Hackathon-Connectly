@@ -27,8 +27,8 @@ export default function Section(props) {
     }
 
     useEffect(() => {
-        let newUser = new User('4', 'Luke', 'software engineer', 'luke@lukemail.com', ['coding'], [1]);
-        let newEvent = new Event('1','Work Social 1','Lloyds Townhall', [3], [4], 'start', 'end', ['coding'], true, 5, false);
+        // let newUser = new User('4', 'Luke', 'software engineer', 'luke@lukemail.com', ['coding'], [1]);
+        // let newEvent = new Event('1','Work Social 1','Lloyds Townhall', [3], [4], 'start', 'end', ['coding'], true, 5, false);
         
         // postUser(newUser)
         //     .then(() => {
@@ -61,12 +61,10 @@ export default function Section(props) {
             <View style={{ height: 130, marginTop: 10 }}>
                 <ScrollView horizontal={true}>
                     <IndividualCategory
-                        imageUri={require('../Images/townhall.jpeg')}
                         users={users}
                         event={events[0]}
                     />
                     <IndividualCategory
-                        imageUri={require('../Images/football.webp')}
                         users={users}
                         event={events[1]}
                     />
