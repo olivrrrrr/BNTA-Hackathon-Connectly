@@ -1,6 +1,6 @@
 import { View, TouchableOpacity, Text} from 'react-native';
 import React, {useState} from 'react';
-import {Agenda} from 'react-native-calendars'; 
+import {Agenda, AgendaEntry, AgendaSchedule} from 'react-native-calendars'; 
 import {Card} from 'react-native-paper';
 
 export default function CalendarContainer({ navigation }) {
@@ -22,42 +22,41 @@ export default function CalendarContainer({ navigation }) {
     return date.toISOString().split('T')[0];
   }
 
-  const[items, setItems] = useState({})
+  const[items, setItems] = useState({
+    '2022-11-05': [{name: 'event1'}, {name: 'event3'}, {name: 'event4'}],
+    '2022-11-06': [{name: 'event2'}]
+  })
 
-  const loadItems = (day) => {
-    setTimeout(() => {
-      for (let i = -15; i < 85; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = timeToString(time);
-        if (!items[strTime]) {
-          items[strTime] = [];
-          const numItems = Math.floor(Math.random() * 3 + 1);
-          for (let j = 0; j < numItems; j++) {
-            items[strTime].push({
-              name: 'Item for ' + strTime + ' #' + j,
-              // height: Math.max(50, Math.floor(Math.random() * 150)),
-            });
-          }
-        }
-      }
-      const newItems = {};
-      Object.keys(items).forEach((key) => {
-        newItems[key] = items[key];
-      });
-      setItems(newItems);
-    }, 1000);
-  }
+  // // const loadItems = (day) => {
+  // //   setTimeout(() => {
+  // //     for (let i = -15; i < 85; i++) {
+  // //       const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+  // //       const strTime = timeToString(time);
+  // //       if (!items[strTime]) {
+  // //         items[strTime] = [];
+  // //         const numItems = Math.floor(Math.random() * 3 + 1);
+  // //         for (let j = 0; j < numItems; j++) {
+  // //           items[strTime].push({
+  // //             name: 'Item for ' + strTime + ' #' + j,
+  // //             // height: Math.max(50, Math.floor(Math.random() * 150)),
+  // //           });
+  // //         }
+  // //       }
+  // //     }
+  //     const newItems = {};
+  //     Object.keys(items).forEach((key) => {
+  //       newItems[key] = items[key];
+  //     });
+  //     setItems(newItems);
+  //   }, 1000);
+  // }
 
   const renderItem = (item) => {
     return (
       <TouchableOpacity style={{marginTop: 10}}>
         <Card>
           <Card.Content>
-          <View style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}>
+          <View>
               <Text>{item.name}</Text>
             </View>
           </Card.Content>
@@ -70,7 +69,7 @@ export default function CalendarContainer({ navigation }) {
         <View style={{ flex: 1}}>
             <Agenda
   items={items}
-  loadItemsForMonth={loadItems}
+  // loadItemsForMonth={loadItems}
   selected={currentDate()}
   minDate={getLimitDate(-365)}
   maxDate={getLimitDate(731)}
