@@ -1,14 +1,10 @@
 import { View, TouchableOpacity, Text} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Agenda, AgendaEntry, AgendaSchedule} from 'react-native-calendars'; 
 import {Card} from 'react-native-paper';
+import { getUserById } from '../Adaptors/BackendAdaptor';
 
 export default function CalendarContainer({ navigation }) {
-
-  const timeToString = (time) => {
-    const date = new Date(time);
-    return date.toISOString().split('T')[0];
-  };
 
   const currentDate = () => {
     const date = new Date();
@@ -16,16 +12,47 @@ export default function CalendarContainer({ navigation }) {
     return date.toISOString().split('T')[0];
   }
 
+  let date = currentDate();
+
+  let initialState = {}
+  initialState[date] = []
+
+  const[items, setItems] = useState(initialState)
+
+  useEffect(() => {
+    getUserById(1).then((res) => {
+      extractUsersEvents(res.users)})
+  }, [])
+
+  const extractUsersEvents = (user) => {
+    let newItems = {...initialState}
+    user.events.forEach((event) => {
+      let eventDate = timeToString(event.startDate);
+      if(!newItems[eventDate]) {
+        newItems[eventDate] = [event];
+      }
+      else {
+        newItems[eventDate] = [...newItems[eventDate], event];
+      }
+    })
+    setItems(newItems);
+  }
+
+  const timeToString = (time) => {
+    const date = new Date(time);
+    return date.toISOString().split('T')[0];
+  };
+
   const getLimitDate = (days) => {
     const date = new Date();
     date.setDate(date.getDate() + days)
     return date.toISOString().split('T')[0];
   }
 
-  const[items, setItems] = useState({
-    '2022-11-05': [{name: 'event1'}, {name: 'event3'}, {name: 'event4'}],
-    '2022-11-06': [{name: 'event2'}]
-  })
+  // const[items, setItems] = useState({
+  //   '2022-11-05': [{name: 'event1'}, {name: 'event3'}, {name: 'event4'}],
+  //   '2022-11-06': [{name: 'event2'}]
+  // })
 
   // // const loadItems = (day) => {
   // //   setTimeout(() => {
@@ -57,7 +84,7 @@ export default function CalendarContainer({ navigation }) {
         <Card>
           <Card.Content>
           <View>
-              <Text>{item.name}</Text>
+              <Text>{item.title}</Text>
             </View>
           </Card.Content>
         </Card>
@@ -81,9 +108,12 @@ export default function CalendarContainer({ navigation }) {
   }}
   hideKnob={false}
   showClosingKnob={true}
-  disabledByDefault={true}
-  refreshing={false}
-  refreshControl={null}
+  renderEmptyDate={() => {
+    return <View />;
+  }}
+  // disabledByDefault={true}
+  // refreshing={false}
+  // refreshControl={null}
   style={{}}
 />
         </View>
