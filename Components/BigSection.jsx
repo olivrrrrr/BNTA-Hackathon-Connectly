@@ -11,6 +11,7 @@ import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEve
 import BigIndividualCategory from './BigIndividualCategory';
 import User from '../Classes/User'
 import Event from '../Classes/Event'
+import BigCategory from './BigCategory';
 
 
 export default function BigSection(props) {
@@ -56,7 +57,8 @@ export default function BigSection(props) {
         <View style={[themeStyles, styles.sectionContainer]}>
             <View style={{ height: 170 }}>
                 <ScrollView horizontal={true}>
-                    <BigIndividualCategory
+                    <BigCategory user={users} events={events}/>
+                    {/* <BigIndividualCategory
                         imageUri={require('../Images/townhall.jpeg')}
                         users={users}
                         event={events[0]}
@@ -65,7 +67,7 @@ export default function BigSection(props) {
                         imageUri={require('../Images/football.webp')}
                         users={users}
                         event={events[1]}
-                    />
+                    /> */}
                 </ScrollView>
 
             </View>

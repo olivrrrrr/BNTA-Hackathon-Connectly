@@ -8,7 +8,7 @@ import {
 
 import { ThemeContext } from '../Context/ThemeContext';
 import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent } from '../Adaptors/BackendAdaptor';
-import IndividualCategory from './IndividualCategory';
+import Category from './Category';
 import User from '../Classes/User'
 import Event from '../Classes/Event'
 
@@ -60,14 +60,15 @@ export default function Section(props) {
             </Text>
             <View style={{ height: 130, marginTop: 10 }}>
                 <ScrollView horizontal={true}>
-                    <IndividualCategory
+                    <Category user={users} events={events}/>
+                    {/* <IndividualCategory
                         users={users}
                         event={events[0]}
                     />
                     <IndividualCategory
                         users={users}
                         event={events[1]}
-                    />
+                    /> */}
                 </ScrollView>
 
             </View>

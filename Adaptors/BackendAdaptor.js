@@ -13,6 +13,13 @@ const getAllEvents = () => {
     )
 }
 
+const getAllSpecialEvents = () => {
+    return(
+        fetch("api/v1/specialEvents")
+        .then(res => res.json())
+    )
+}
+
 const getEventById = (id) => {
     return(
         fetch(`api/v1/events/${id}`)
@@ -49,4 +56,4 @@ const postEvent = (event) => {
     .then(res => res.json()))
 }
 
-export {getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent}
+export {getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent, getAllSpecialEvents}

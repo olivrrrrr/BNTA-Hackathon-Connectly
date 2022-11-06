@@ -1,12 +1,14 @@
 import {createServer, Model, server} from 'miragejs';
 import {users} from './Users.js'
 import {events} from './Events.js'
+import {specialEvents} from './SpecialEvents.js'
 
 const mockServer = () => {
     return(createServer({
       models: {
           events: Model,
           users: Model,
+          specialEvents: Model,
       },
       routes() {
         //    this.namespace = "api"
@@ -35,6 +37,9 @@ const mockServer = () => {
                 attrs.id = userId++
                 return schema.users.create(attrs)
             })
+            this.get("/api/v1/specialEvents", (schema) => {
+                return schema.specialEvents.all();
+            })
         },
 
         seeds(server) {
@@ -44,6 +49,9 @@ const mockServer = () => {
     } 
         for (let i in users)  {
             server.create("user", users[i])
+        }
+        for (let i in specialEvents) {
+            server.create("specialEvent", specialEvents[i])
         }
         }
        

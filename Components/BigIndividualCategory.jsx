@@ -14,6 +14,7 @@ export default function BigIndividualCategory (props) {
         borderColor: toggle ? '#FFFFFF' : '#000000',
         color: toggle ? '#FFFFFF' : '#000000',
     }
+    console.log(event)
     return (
         <View style={[styles.categoryContainer, themeStyles]}>
             <View style={{ flex: 2 }}>
