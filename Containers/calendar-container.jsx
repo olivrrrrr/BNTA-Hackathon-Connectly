@@ -7,8 +7,6 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  View,
-  Text
 } from 'react-native';
 import SliderToggle from '../Components/SliderToggle';
 import EventToggle from '../Components/EventToggle';
@@ -53,7 +51,7 @@ export default function CalendarContainer({ navigation, dark, allEvents }) {
                     }
                 }
             }
-            setFilteredData(data)
+            setFilteredData([...data])
         }
         else {
             setFilteredData(allEvents)
@@ -62,11 +60,11 @@ export default function CalendarContainer({ navigation, dark, allEvents }) {
     }
 
     return (
-
         <SafeAreaView style={{ flex: 1 }}>
+            {console.log("parent: " + filteredData)}
             <SearchBar searchText={searchValue} setSearchText={filter} theme={dark} />
             <SliderToggle />
-            <CalendarComponent />
+            <CalendarComponent events={filteredData}/>
             <EventToggle />
         </SafeAreaView>
     )

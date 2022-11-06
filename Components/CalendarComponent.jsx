@@ -4,7 +4,7 @@ import {Agenda, AgendaEntry, AgendaSchedule} from 'react-native-calendars';
 import {Card} from 'react-native-paper';
 import { getUserById, getAllEvents } from '../Adaptors/BackendAdaptor';
 
-export default function CalendarComponent() {
+export default function CalendarComponent(props) {
 
   const currentDate = () => {
     const date = new Date();
@@ -20,17 +20,20 @@ export default function CalendarComponent() {
   const[userItems, setUserItems] = useState(initialState)
   const[allItems, setAllItems] = useState(initialState)
 
-  useEffect(() => {
-    getUserById(1).then((res) => {
-      setUserItems(extractEvents(res.users.events));})
-    getAllEvents().then((res) => {
-      setAllItems(extractEvents(res.events))})
-      console.log(allItems)
-  }, [])
+  // useEffect(() => {
+  //   getUserById(1).then((res) => {
+  //     setUserItems(extractEvents(res.users.events));})
+  //   getAllEvents().then((res) => {
+  //     setAllItems(extractEvents(res.events))})
+  //     console.log(allItems)
+  // }, [])
 
-  const extractEvents = (events) => {
+  useEffect(() => extractEvents(),[])
+
+  const extractEvents = () => {
+    console.log("child: " + props.events)
     let newItems = {...initialState}
-    events.forEach((event) => {
+    props.events.forEach((event) => {
       let eventDate = timeToString(event.startDate);
       if(!newItems[eventDate]) {
         newItems[eventDate] = [event];
@@ -39,7 +42,7 @@ export default function CalendarComponent() {
         newItems[eventDate] = [...newItems[eventDate], event];
       }
     })
-    return newItems;
+    setUserItems(newItems);
   }
 
   const timeToString = (time) => {
