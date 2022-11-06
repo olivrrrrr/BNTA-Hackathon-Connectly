@@ -8,7 +8,7 @@ import {
 import { ThemeContext } from '../Context/ThemeContext';
 
 export default function IndividualCategory (props) {
-    const {event, imageUri} = props;
+    const {event} = props;
     const { toggle } = useContext(ThemeContext);
     const themeStyles = {
         borderColor: toggle ? '#FFFFFF' : '#000000',
@@ -17,7 +17,7 @@ export default function IndividualCategory (props) {
     return (
         <View style={[styles.categoryContainer, themeStyles]}>
             <View style={{ flex: 2 }}>
-            <Image source={imageUri}
+            <Image source={event.imageURL}
                     style={{ flex: 1, width: null, height: null, resizeMode: 'stretch', borderRadius: 15}}
                 />
                 <Text style={[themeStyles, styles.categoryText]}>{event.title}</Text>

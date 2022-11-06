@@ -10,7 +10,8 @@ export const events = [
         tags: ["coding"],
         wheelchairAccessible: true,
         cost: 10,
-        isDrinking: false
+        isDrinking: false,
+        imageURL: require('../Images/townhall.jpeg')
     },
     {
         id: 2,
@@ -23,6 +24,7 @@ export const events = [
         tags: ["football"],
         wheelchairAccessible: false,
         cost: 5,
-        isDrinking: false
+        isDrinking: false,
+        imageURL: require('../Images/football.webp')
     }
 ]
