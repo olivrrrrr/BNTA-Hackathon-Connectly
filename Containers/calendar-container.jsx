@@ -2,7 +2,7 @@ import { View, TouchableOpacity, Text} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Agenda, AgendaEntry, AgendaSchedule} from 'react-native-calendars'; 
 import {Card} from 'react-native-paper';
-import { getUserById } from '../Adaptors/BackendAdaptor';
+import { getUserById, getAllEvents } from '../Adaptors/BackendAdaptor';
 
 export default function CalendarContainer({ navigation }) {
 
@@ -17,16 +17,20 @@ export default function CalendarContainer({ navigation }) {
   let initialState = {}
   initialState[date] = []
 
-  const[items, setItems] = useState(initialState)
+  const[userItems, setUserItems] = useState(initialState)
+  const[allItems, setAllItems] = useState(initialState)
 
   useEffect(() => {
     getUserById(1).then((res) => {
-      extractUsersEvents(res.users)})
+      setUserItems(extractEvents(res.users.events));})
+    getAllEvents().then((res) => {
+      setAllItems(extractEvents(res.events))})
+      console.log(allItems)
   }, [])
 
-  const extractUsersEvents = (user) => {
+  const extractEvents = (events) => {
     let newItems = {...initialState}
-    user.events.forEach((event) => {
+    events.forEach((event) => {
       let eventDate = timeToString(event.startDate);
       if(!newItems[eventDate]) {
         newItems[eventDate] = [event];
@@ -35,7 +39,7 @@ export default function CalendarContainer({ navigation }) {
         newItems[eventDate] = [...newItems[eventDate], event];
       }
     })
-    setItems(newItems);
+    return newItems;
   }
 
   const timeToString = (time) => {
@@ -95,7 +99,7 @@ export default function CalendarContainer({ navigation }) {
     return (
         <View style={{ flex: 1}}>
             <Agenda
-  items={items}
+  items={userItems}
   // loadItemsForMonth={loadItems}
   selected={currentDate()}
   minDate={getLimitDate(-365)}
