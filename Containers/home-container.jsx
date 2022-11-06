@@ -11,7 +11,7 @@ import SliderToggle from '../Components/SliderToggle';
 import { ThemeContext } from '../Context/ThemeContext';
 import BigSection from '../Components/BigSection';
 import Section from '../Components/Section';
-import SpecialSection from '../Components/SpecialSection';
+import SpecialSection from '../Components/SpecialEventsList';
 
 export default function HomeContainer({ navigation }) {
     const { toggle } = useContext(ThemeContext);
@@ -29,7 +29,7 @@ export default function HomeContainer({ navigation }) {
                     <Section
                         title={'My Interests'}
                     />
-                    <SpecialSection title={'Special Section'}/>
+                    <SpecialSection title={'Special Events'}/>
                 </View>
             </ScrollView>
         </SafeAreaView>
