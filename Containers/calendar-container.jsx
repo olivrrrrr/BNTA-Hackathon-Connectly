@@ -5,7 +5,7 @@ import { event } from 'react-native-reanimated';
 
 export default function CalendarContainer({ navigation, dark, allEvents }) {
 
-    const [filteredData, setFilteredData] = useState([])
+    const [filteredData, setFilteredData] = useState(allEvents)
     const [searchValue, setSearchValue] = useState('')
 
     // const filter = (text) => {
@@ -50,7 +50,7 @@ export default function CalendarContainer({ navigation, dark, allEvents }) {
                 //onPress={() => navigation.navigate('Home')} 
                 style={{ fontSize: 26, fontWeight: 'bold' }}>Calendar Screen
             </Text>
-            <Text>{filteredData.map(event => <Text>"{event.title}"{"\n"}</Text>)}</Text>
+            <Text>{filteredData.map(event => <Text >"{event.title}"{"\n"}</Text>)}</Text>
         </View>
     )
 }
