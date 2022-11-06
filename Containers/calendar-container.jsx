@@ -2,6 +2,18 @@ import { View, Text } from 'react-native';
 import { useState, useEffect } from 'react';
 import SearchBar from '../Components/SearchBar';
 import { event } from 'react-native-reanimated';
+import CalendarComponent from '../Components/CalendarComponent';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+  Text
+} from 'react-native';
+import SliderToggle from '../Components/SliderToggle';
+import EventToggle from '../Components/EventToggle';
+import { useContext } from 'react';
+import { ThemeContext }from '../Context/ThemeContext';
 
 export default function CalendarContainer({ navigation, dark, allEvents }) {
 
@@ -18,6 +30,12 @@ export default function CalendarContainer({ navigation, dark, allEvents }) {
     //         setSearchValue('')
     //     }
     // }
+    const { toggle } = useContext(ThemeContext);
+
+    const themeStyles = {
+        backgroundColor: toggle ? '#333' : '#FFFFFF',
+        color: toggle ? '#CCC' : '#333',
+    }
 
     const filter = (text) => {
         if (text) {
@@ -30,27 +48,27 @@ export default function CalendarContainer({ navigation, dark, allEvents }) {
                 const name = event.title.toLowerCase().replace(/\s/g, '')
                 for (let j = 0; j < tags.length; j++) {
                     const tag = tags[j].toLowerCase().replace(/\s/g, '')
-                    if (tag.includes(searchParam) || name.includes(searchParam)){
+                    if (tag.includes(searchParam) || name.includes(searchParam)) {
                         data.push(event)
                     }
-                }    
+                }
             }
             setFilteredData(data)
         }
-        else{
+        else {
             setFilteredData(allEvents)
             setSearchValue('')
         }
     }
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <SearchBar searchText={searchValue} setSearchText={filter} theme={dark}/>
-            <Text
-                //onPress={() => navigation.navigate('Home')} 
-                style={{ fontSize: 26, fontWeight: 'bold' }}>Calendar Screen
-            </Text>
-            <Text>{filteredData.map(event => <Text >"{event.title}"{"\n"}</Text>)}</Text>
-        </View>
+
+        <SafeAreaView style={{ flex: 1 }}>
+            <SearchBar searchText={searchValue} setSearchText={filter} theme={dark} />
+            <SliderToggle />
+            <CalendarComponent />
+            <EventToggle />
+        </SafeAreaView>
     )
+
 }

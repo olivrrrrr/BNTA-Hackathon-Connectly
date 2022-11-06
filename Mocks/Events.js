@@ -5,7 +5,7 @@ export const events = [
         description: "Some events",
         attendees: [1, 2],
         organisers: [1],
-        startDate: "2021-12-20T00:00:00.000+00:00",
+        startDate: "2022-11-06T00:00:00.000+00:00",
         endDate: "2022-12-20T00:00:00.000+00:00",
         tags: ["coding"],
         wheelchairAccessible: true,
@@ -19,11 +19,11 @@ export const events = [
         description: "Some events",
         attendees: [1, 2],
         organisers: [2],
-        startDate: "2021-12-20T00:00:00.000+00:00",
+        startDate: "2022-11-08T00:00:00.000+00:00",
         endDate: "2022-12-20T00:00:00.000+00:00",
         tags: ["football", "sports"],
         wheelchairAccessible: false,
-        cost: 5,
+        cost: 5, 
         isDrinking: false,
         imageURL: require('../Images/football.webp')
     }
