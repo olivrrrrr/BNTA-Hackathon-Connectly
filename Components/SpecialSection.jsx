@@ -7,10 +7,11 @@ import {
 } from 'react-native';
 
 import { ThemeContext } from '../Context/ThemeContext';
-import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent } from '../Adaptors/BackendAdaptor';
+import { getAllUsers, getAllSpecialEvents, getEventById, getUserById, postUser, postEvent } from '../Adaptors/BackendAdaptor';
 import User from '../Classes/User'
 import Event from '../Classes/Event'
 import SpecialIndividualEvent from './SpecialIndividualEvent';
+import SpecialIndividualEvents from './SpecialIndividualEvents';
 
 
 export default function Section(props) {
@@ -27,25 +28,9 @@ export default function Section(props) {
     }
 
     useEffect(() => {
-        let newUser = new User('4', 'Luke', 'software engineer', 'luke@lukemail.com', ['coding'], [1]);
-        let newEvent = new Event('1','Work Social 1','Lloyds Townhall', [3], [4], 'start', 'end', ['coding'], true, 5, false);
-        
-        // postUser(newUser)
-        //     .then(() => {
-        //         getAllUsers().then((json) => {
-        //             setUsers(json.users);
-        //         })
-        //     })
 
-        // postEvent(newEvent)
-        //     .then(() => {
-        //         getAllEvents().then((json) => {
-        //             setEvents(json.events);
-        //         })
-        //     })
-
-        getAllEvents().then((json) => {
-            setEvents(json.events);
+        getAllSpecialEvents().then((json) => {
+            setEvents(json.specialEvents);
         })
         getAllUsers().then((json) => {
             setUsers(json.users);
@@ -60,11 +45,7 @@ export default function Section(props) {
             </Text>
             <View style={{ height: 150, marginTop: 10 }}>
                 <ScrollView horizontal={true}>
-                    <SpecialIndividualEvent
-                        imageUri={require('../Images/townhall.jpeg')}
-                        users={users}
-                        event={events[0]}
-                    />
+                    <SpecialIndividualEvents events={events} user={users}/>
                 </ScrollView>
 
             </View>

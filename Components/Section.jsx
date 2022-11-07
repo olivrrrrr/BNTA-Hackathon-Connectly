@@ -7,8 +7,8 @@ import {
 } from 'react-native';
 
 import { ThemeContext } from '../Context/ThemeContext';
-import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent } from '../Adaptors/BackendAdaptor';
-import IndividualCategory from './IndividualCategory';
+import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent, getPopularEvents } from '../Adaptors/BackendAdaptor';
+import Category from './Category';
 import User from '../Classes/User'
 import Event from '../Classes/Event'
 
@@ -18,6 +18,7 @@ export default function Section(props) {
 
     const [users, setUsers] = useState([]);
     const [events, setEvents] = useState([]);
+    const [popularEvents, setPopularEvents] = useState([]);
     const { toggle } = useContext(ThemeContext);
 
     const themeStyles = {
@@ -50,6 +51,10 @@ export default function Section(props) {
         getAllUsers().then((json) => {
             setUsers(json.users);
         })
+        getPopularEvents().then((json) => {
+            console.log(popularEvents.length)
+            setPopularEvents(json.popularEvents);
+        })
     }, [])
 
     return (users.length !== 0 && events.length !== 0) ? (
@@ -60,14 +65,15 @@ export default function Section(props) {
             </Text>
             <View style={{ height: 130, marginTop: 10 }}>
                 <ScrollView horizontal={true}>
-                    <IndividualCategory
+                    <Category user={users} events={popularEvents}/>
+                    {/* <IndividualCategory
                         users={users}
                         event={events[0]}
                     />
                     <IndividualCategory
                         users={users}
                         event={events[1]}
-                    />
+                    /> */}
                 </ScrollView>
 
             </View>
