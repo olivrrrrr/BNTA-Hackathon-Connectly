@@ -55,6 +55,10 @@ export default function BigSection(props) {
 
     return (users.length !== 0 && events.length !== 0) ? (
         <View style={[themeStyles, styles.sectionContainer]}>
+            <Text
+                style={[themeStyles, styles.sectionTitle]}>
+                {title}
+            </Text>
             <View style={{ height: 170 }}>
                 <ScrollView horizontal={true}>
                     <BigCategory user={users} events={events}/>
