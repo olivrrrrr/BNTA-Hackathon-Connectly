@@ -28,10 +28,10 @@ export default function CalendarComponent(props) {
   //     console.log(allItems)
   // }, [])
 
-  useEffect(() => extractEvents(),[])
+  useEffect(() => extractEvents(),[props.events])
 
   const extractEvents = () => {
-    console.log("child: " + props.events)
+    console.log("child: " + props.events[0].title)
     let newItems = {...initialState}
     props.events.forEach((event) => {
       let eventDate = timeToString(event.startDate);
