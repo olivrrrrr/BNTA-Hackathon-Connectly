@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { View, Text, Modal } from 'react-native';
 
@@ -11,11 +11,11 @@ import CustomModal from './Components/CustomModal';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import { ThemeContext } from './Context/ThemeContext';
-import {mockServer} from './Mocks/MockServer';
+import { mockServer } from './Mocks/MockServer';
+import { getAllEvents } from './Adaptors/BackendAdaptor';
 
-if(window.server) {
+if (window.server) {
   server.shutdown()
 }
 
@@ -42,6 +42,13 @@ const App = () => {
       notification: 'rgb(255, 69, 58)',
     },
   };
+
+  const [events, setEvents] = useState([]);
+  useEffect(() => {
+    getAllEvents().then((json) => {
+      setEvents(json.events);
+    })
+  }, [])
 
   return (
     <NavigationContainer theme={MyTheme}>
@@ -80,11 +87,11 @@ const App = () => {
           tabBarActiveTintColor: 'tomato',
           tabBarShowLabel: false,
           headerShown: false
-        })} 
+        })}
       >
 
         <Tab.Screen name={homeName} component={HomeContainer} />
-        <Tab.Screen name={calenderName} component={CalendarContainer} />
+        <Tab.Screen name={calenderName} children={() => <CalendarContainer dark={toggle} allEvents={events}/>} />
         <Tab.Screen name={createEventName} component={EventStack} />
         <Tab.Screen name={notificationsName} component={NotificationsContainer} />
         <Tab.Screen name={chatName} component={ChatContainer} />

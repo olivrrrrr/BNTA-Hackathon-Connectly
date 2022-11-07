@@ -24,12 +24,12 @@ export default function HomeContainer({ navigation }) {
         <SafeAreaView style={[styles.appContainer, themeStyles]}>
             <ScrollView>
                 <SliderToggle />
-                <BigSection/>
+                <BigSection title={'Your Events'}/>
                 <View>
                     <Section
-                        title={'My Interests'}
+                        title={'Popular Events'}
                     />
-                    <SpecialSection title={'Special Section'}/>
+                    <SpecialSection title={'Psst! Remember to consider'}/>
                 </View>
             </ScrollView>
         </SafeAreaView>
