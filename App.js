@@ -11,10 +11,11 @@ import CustomModal from './Components/CustomModal';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import EventNameScreen from './Components/CreateEvent/EventNameScreen';
 
 import { ThemeContext } from './Context/ThemeContext';
 import {mockServer} from './Mocks/MockServer';
-
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 if(window.server) {
   server.shutdown()
 }
@@ -44,6 +45,7 @@ const App = () => {
   };
 
   return (
+    <SafeAreaProvider>
     <NavigationContainer theme={MyTheme}>
       <Tab.Navigator
         initialRouteName={homeName}
@@ -91,6 +93,7 @@ const App = () => {
 
       </Tab.Navigator>
     </NavigationContainer>
+    </SafeAreaProvider>
   )
 };
 

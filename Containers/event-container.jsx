@@ -4,29 +4,74 @@ import {
     TouchableOpacity,
     TextInput,
     FlatList,
-    StyleSheet } from 'react-native';
-import CreateEventHeader from '../Components/CreateEventHeader';
+    StyleSheet,
+    Button } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-export default function EventContainer({ navigation }) {
-    return (
+import { createStackNavigator } from "@react-navigation/stack";
+import EventNameScreen from '../Components/CreateEvent/EventNameScreen';
+import CreateEventScreen from '../Components/CreateEvent/CreateEventScreen'
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+export default function EventContainer({navigation}) {
+
+const CreateEventStack = createStackNavigator();
+    
+    return(
+        <TouchableOpacity onPress={() => navigation.navigate('Modal')}
+            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={{ fontSize: 24 }}>Press Me to create an Event</Text>
+        </TouchableOpacity>
         // <TouchableOpacity onPress={() => navigation.navigate('Modal')}
-            // style={styles.touchableOpacity}>
-            <ScrollView style={styles.scrollView}>
-                <CreateEventHeader title='Create Event' />
-                <FlatList />
-                    {/* <Text style={styles.text}>Create Event</Text>
-                    <TextInput
-                        style={{
-                        height: 40,
-                        borderColor: 'gray',
-                        borderWidth: 1
-                        }}
-                    /> */}
-            </ScrollView>
-        // </TouchableOpacity>
+
+        //     style={styles.touchableOpacity} />
+        // <SafeAreaProvider>
+        //     <CreateEventStack.Navigator>
+        //         <CreateEventStack.Screen 
+        //             name="CreateEventScreen"
+        //             component={CreateEventScreen}
+        //             options={{
+        //                 headerTitle:'Create New Event'
+        //             }}
+        //             // options={{title: "Create Event"}}
+        //         />
+        //         <CreateEventStack.Screen
+        //             name="EventNameScreen"
+        //             component={EventNameScreen}
+        //             options={{
+        //                 title: "Event Name",
+        //                 headerRight: () => (
+        //                     <Button
+        //                     onPress={() => alert('This is a button!')}
+        //                     title="Save"
+        //                     color="#fff"
+        //                     />)
+        //                 }}
+        //             screenOptions={{ headerShown: false }}
+
+        //             />
+        //     </CreateEventStack.Navigator>
+        // </SafeAreaProvider>
     )
 }
+//     return (
+        
+//             // <TouchableOpacity onPress={() => navigation.navigate('Modal')}
+//                 // style={styles.touchableOpacity}>
+//                 <ScrollView style={styles.scrollView}>
+//                     <CreateEventOptions title='Create Event' />
+//                     {/* <FlatList /> */}
+//                         {/* <Text style={styles.text}>Create Event</Text>
+//                         <TextInput
+//                             style={{
+//                             height: 40,
+//                             borderColor: 'gray',
+//                             borderWidth: 1
+//                             }}
+//                         /> */}
+//                 </ScrollView> 
+//     )
+// }
 
 const styles = StyleSheet.create({
     touchableOpacity: {
