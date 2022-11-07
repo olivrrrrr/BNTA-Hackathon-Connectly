@@ -11,7 +11,8 @@ export const events = [
         wheelchairAccessible: true,
         cost: 10,
         isDrinking: false,
-        imageURL: require('../Images/townhall.jpeg')
+        imageURL: require('../Images/townhall.jpeg'),
+        location: "London"
     },
     {
         id: 2,
@@ -25,7 +26,8 @@ export const events = [
         wheelchairAccessible: false,
         cost: 5, 
         isDrinking: false,
-        imageURL: require('../Images/football.webp')
+        imageURL: require('../Images/football.webp'),
+        location: "Manchester"
     },
     {
         id: 3,
@@ -39,7 +41,8 @@ export const events = [
         wheelchairAccessible: false,
         cost: 5, 
         isDrinking: false,
-        imageURL: require('../Images/football.webp')
+        imageURL: require('../Images/football.webp'),
+        location: "London"
     },
     {
         id: 4,
@@ -53,6 +56,7 @@ export const events = [
         wheelchairAccessible: false,
         cost: 5, 
         isDrinking: false,
-        imageURL: require('../Images/football.webp')
+        imageURL: require('../Images/football.webp'),
+        location: "London"
     }
 ]

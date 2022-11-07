@@ -37,10 +37,10 @@ export default function CalendarContainer({ navigation, dark, allEvents }) {
                 const event = allEvents[index];
                 const tags = event.tags
                 const name = event.title.toLowerCase().replace(/\s/g, '')
-                
+                const location = event.location.toLowerCase().replace(/\s/g, '')
                 for (let j = 0; j < tags.length; j++) {
                     const tag = tags[j].toLowerCase().replace(/\s/g, '')
-                    if (tag.includes(searchParam) || name.includes(searchParam)) {
+                    if (tag.includes(searchParam) || name.includes(searchParam) || location.includes(searchParam)) {
                         if (!data.includes(event)) {
                             data.push(event)    
                         }
