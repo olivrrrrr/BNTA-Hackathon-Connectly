@@ -1,13 +1,12 @@
 package com.pendingModeration.hackathon.controller;
 
 import com.pendingModeration.hackathon.domain.User;
-import com.pendingModeration.hackathon.repository.UserRepository;
+import com.pendingModeration.hackathon.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,12 +17,26 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     @GetMapping(value = "/users", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userRepository.findAll();
+        List<User> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/users", consumes = APPLICATION_JSON_VALUE)
+        public ResponseEntity addUser(@RequestBody User user) {
+        System.out.println(user.toString());
+        userService.addUser(user);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping(value="/addUserToEvent/event={eventId}/user={userId}")
+    public ResponseEntity addEventForUser(@PathVariable ("eventId") String eventId, @PathVariable("userId") String userId) {
+        userService.addUserToEvent(eventId, userId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
