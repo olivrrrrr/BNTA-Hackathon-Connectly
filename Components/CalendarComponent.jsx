@@ -2,19 +2,12 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
 import { Agenda, AgendaEntry, AgendaSchedule } from 'react-native-calendars';
 import { Card } from 'react-native-paper';
-import { ThemeContext } from '../Context/ThemeContext';
 
 export default function CalendarComponent(props) {
-  const [{key, theme}, setTheme] = useState({key: 'dark', theme:{}})
 
-  const { toggle } = useContext(ThemeContext);
-
-  const themeStyles = {
-      calendarBackground: '#333',
-  }
   const currentDate = () => {
     const date = new Date();
-    console.log(date);
+    // console.log(date);
     return date.toISOString().split('T')[0];
   }
 
@@ -28,7 +21,7 @@ export default function CalendarComponent(props) {
   useEffect(() => extractEvents(), [props.events])
 
   const extractEvents = () => {
-    console.log("child: " + props.events[0].title)
+    // console.log("child: " + props.events[0].title)
     let newItems = { ...initialState }
     props.events.forEach((event) => {
       let eventDate = timeToString(event.startDate);
@@ -98,6 +91,7 @@ export default function CalendarComponent(props) {
 
   return (
     <View style={styles.calendarComponentContainer}>
+      {console.log(userItems)}
       <Agenda
         items={userItems}
         // loadItemsForMonth={loadItems}
@@ -117,17 +111,17 @@ export default function CalendarComponent(props) {
         }}
         theme={{
           calendarBackground: '#808080',
-          dayTextColor: '#fff',
+          dayTextColor: 'white',
           textDisabledColor: '#444',
           monthTextColor: '#888',
           agendaDayTextColor: 'yellow',
           agendaDayNumColor: 'green',
           agendaTodayColor: 'red',
-          agendaKnobColor: 'blue'
+          agendaKnobColor: 'white'
         }}
-        // disabledByDefault={true}
-        // refreshing={false}
-        // refreshControl={null}
+      // disabledByDefault={true}
+      // refreshing={false}
+      // refreshControl={null}
       />
     </View>
   )
@@ -135,6 +129,6 @@ export default function CalendarComponent(props) {
 
 const styles = StyleSheet.create({
   calendarComponentContainer: {
-      flex: 1,
+    flex: 1,
   },
 });

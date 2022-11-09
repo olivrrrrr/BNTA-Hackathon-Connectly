@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { ThemeContext } from '../Context/ThemeContext';
 import { ModalContext } from '../Context/ModalContext';
-import Modal from '../Components/ReusableModal';
+import SpecialModal from './SpecialModal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function SpecialIndividualEvent(props) {
@@ -19,6 +19,12 @@ export default function SpecialIndividualEvent(props) {
         color: toggle ? '#FFFFFF' : '#000000',
     }
     const { showModal, toggleModal } = useContext(ModalContext);
+
+    const currentDate = () => {
+        const date = new Date();
+        return date.toISOString().split('T')[0];
+    }
+
     return (
         <>
             <Pressable onPress={() => toggleModal(event.id, false, false, true)}>
@@ -32,38 +38,23 @@ export default function SpecialIndividualEvent(props) {
                 </View>
             </Pressable>
             {showModal.show && showModal.specialEvent === true && showModal.modalId === event.id ?
-                <Modal
+                <SpecialModal
                 >
                     <View style={styles.modalTextContainer}>
                         <Text style={styles.modalText}>
-                            <Ionicons name="calendar-outline" size={15} color="purple" /> Event: {event.title}
+                            <Ionicons name="calendar" size={15} color="purple" /> {event.title}
                         </Text>
                         <Text style={styles.modalText}>
-                            <Ionicons name="information-circle-outline" size={15} color="purple" /> Details: {event.description}
+                            <Ionicons name="information-circle" size={15} color="purple" /> What is it? {event.description}
                         </Text>
                         <Text style={styles.modalText}>
-                            <Ionicons name="people-outline" size={15} color="purple" /> Number of people attending: {event.attendees}
+                            <Ionicons name="time-outline" size={15} color="purple" /> Start Date: {currentDate(event.startDate)}
                         </Text>
                         <Text style={styles.modalText}>
-                            <Ionicons name="time-outline" size={15} color="purple" /> Starting at: {event.startDate}
-                        </Text>
-                        <Text style={styles.modalText}>
-                            <Ionicons name="time-outline" size={15} color="purple" /> Ending at: {event.endDate}
-                        </Text>
-                        <Text style={styles.modalText}>
-                            <Ionicons name="help" size={15} color="purple" /> Is this event wheelchair accessible? {event.wheelchairAccessible ? "Yes" : "No"}
-                        </Text>
-                        <Text style={styles.modalText}>
-                            <Ionicons name="pricetag-outline" size={15} color="purple" /> Price: £{event.cost}
-                        </Text>
-                        <Text style={styles.modalText}>
-                            <Ionicons name="location-outline" size={15} color="purple" /> Location to meet: {event.location}
-                        </Text>
-                        <Text style={styles.modalText}>
-                            Will drinking be involved?
+                            <Ionicons name="time-outline" size={15} color="purple" /> End Date: {currentDate(event.endDate)}
                         </Text>
                     </View>
-                </Modal> : null}
+                </SpecialModal> : null}
         </>
     )
 }

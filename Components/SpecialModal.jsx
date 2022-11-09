@@ -2,11 +2,8 @@ import React, { useContext } from "react";
 import { View, Text, Modal, Button, TouchableOpacity } from 'react-native';
 import { ModalContext } from '../Context/ModalContext';
 
-export default function ReuseableModal(props) {
+export default function SpecialModal(props) {
     let children = props.children;
-    let onAccept = props.onAccept;
-    let onDecline = props.onDecline;
-    let type = props.type;
 
     const { containerStyle, textStyle, sectionStyle } = styles;
     const { toggleModal } = useContext(ModalContext);
@@ -27,9 +24,6 @@ export default function ReuseableModal(props) {
                         <Text style={textStyle}>
                             {children}
                         </Text>
-                        <Text style={textStyle}>Please Respond to the event</Text>
-                        <Button onPress={onAccept} title="Accept" />
-                        <Button onPress={onDecline} title="Decline" />
                     </View>
                 </View>
             </TouchableOpacity>

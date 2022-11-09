@@ -30,8 +30,8 @@ export default function BigSection(props) {
 
     useEffect(() => {
         let newUser = new User('4', 'Luke', 'software engineer', 'luke@lukemail.com', ['coding'], [1]);
-        let newEvent = new Event('1','Work Social 1','Lloyds Townhall', [3], [4], 'start', 'end', ['coding'], true, 5, false);
-        
+        let newEvent = new Event('1', 'Work Social 1', 'Lloyds Townhall', [3], [4], 'start', 'end', ['coding'], true, 5, false);
+
         // postUser(newUser)
         //     .then(() => {
         //         getAllUsers().then((json) => {
@@ -80,18 +80,18 @@ export default function BigSection(props) {
         </View>
     ) :
         (
-        <Text>Loading..</Text>
-    );
+            <Text>Loading..</Text>
+        );
 }
 
 const styles = StyleSheet.create({
     sectionContainer: {
-        paddingLeft: 24,
-        paddingBottom: 10
+        padding: 24
     },
     sectionTitle: {
         fontSize: 24,
         fontWeight: '600',
+        paddingBottom: 10,
     },
     sectionDescription: {
         fontSize: 18,

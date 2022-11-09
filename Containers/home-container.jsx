@@ -1,11 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import {
-    Pressable,
     SafeAreaView,
     ScrollView,
     StyleSheet,
-    View,
 } from 'react-native';
 
 import SliderToggle from '../Components/SliderToggle';
@@ -13,9 +11,6 @@ import { ThemeContext } from '../Context/ThemeContext';
 import BigSection from '../Components/BigSection';
 import Section from '../Components/Section';
 import SpecialSection from '../Components/SpecialSection';
-import Modal from '../Components/ReusableModal';
-import { ModalContext } from '../Context/ModalContext';
-import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent, getAllSpecialEvents } from '../Adaptors/BackendAdaptor';
 
 export default function HomeContainer({ navigation }) {
     const { toggle } = useContext(ThemeContext);
@@ -28,7 +23,6 @@ export default function HomeContainer({ navigation }) {
     return (
         <SafeAreaView style={[styles.appContainer, themeStyles]}>
             <ScrollView>
-                <SliderToggle />
                 <BigSection title={'Your Events'} />
                 <Section title={'Popular Events'} />
                 <SpecialSection title={'Psst! Remember to consider'} />

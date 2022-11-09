@@ -9,8 +9,6 @@ import {
 import { ThemeContext } from '../Context/ThemeContext';
 import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent, getPopularEvents } from '../Adaptors/BackendAdaptor';
 import Category from './Category';
-import User from '../Classes/User'
-import Event from '../Classes/Event'
 
 
 export default function Section(props) {
@@ -30,7 +28,7 @@ export default function Section(props) {
     useEffect(() => {
         // let newUser = new User('4', 'Luke', 'software engineer', 'luke@lukemail.com', ['coding'], [1]);
         // let newEvent = new Event('1','Work Social 1','Lloyds Townhall', [3], [4], 'start', 'end', ['coding'], true, 5, false);
-        
+
         // postUser(newUser)
         //     .then(() => {
         //         getAllUsers().then((json) => {
@@ -65,7 +63,7 @@ export default function Section(props) {
             </Text>
             <View style={{ height: 130, marginTop: 10 }}>
                 <ScrollView horizontal={true}>
-                    <Category user={users} popularEvents={popularEvents}/>
+                    <Category user={users} popularEvents={popularEvents} />
                     {/* <IndividualCategory
                         users={users}
                         event={events[0]}
@@ -79,14 +77,14 @@ export default function Section(props) {
             </View>
         </View>
     ) :
-    (
-        <Text>Loading..</Text>
-    );
+        (
+            <Text>Loading..</Text>
+        );
 }
 
 const styles = StyleSheet.create({
     sectionContainer: {
-        padding: 24,
+        paddingLeft: 24,
     },
     sectionTitle: {
         fontSize: 24,

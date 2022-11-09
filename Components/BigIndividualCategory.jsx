@@ -13,7 +13,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function BigIndividualCategory(props) {
     const { event } = props;
-    const { key } = props;
     const { toggle } = useContext(ThemeContext);
     const themeStyles = {
         borderColor: toggle ? '#FFFFFF' : '#000000',
@@ -21,6 +20,12 @@ export default function BigIndividualCategory(props) {
     }
     const { toggleModal } = useContext(ModalContext);
     const { showModal } = useContext(ModalContext);
+
+    const currentDate = () => {
+        const date = new Date();
+        return date.toISOString().split('T')[0];
+    }
+
     return (
         <>
             <Pressable onPress={() => toggleModal(event.id, true, false, false)}>
@@ -47,10 +52,10 @@ export default function BigIndividualCategory(props) {
                             <Ionicons name="people-outline" size={15} color="purple" /> Number of people attending: {event.attendees}
                         </Text>
                         <Text style={styles.modalText}>
-                            <Ionicons name="time-outline" size={15} color="purple" /> Starting at: {event.startDate}
+                            <Ionicons name="time-outline" size={15} color="purple" /> Date: {currentDate(event.startDate)}
                         </Text>
                         <Text style={styles.modalText}>
-                            <Ionicons name="time-outline" size={15} color="purple" /> Ending at: {event.endDate}
+                            <Ionicons name="time-outline" size={15} color="purple" /> Duration:
                         </Text>
                         <Text style={styles.modalText}>
                             <Ionicons name="help" size={15} color="purple" /> Is this event wheelchair accessible? {event.wheelchairAccessible ? "Yes" : "No"}

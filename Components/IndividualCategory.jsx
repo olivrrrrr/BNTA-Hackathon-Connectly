@@ -19,6 +19,12 @@ export default function IndividualCategory(props) {
         color: toggle ? '#FFFFFF' : '#000000',
     }
     const { showModal, toggleModal } = useContext(ModalContext);
+
+    const currentDate = () => {
+        const date = new Date();
+        return date.toISOString().split('T')[0];
+    }
+
     return (
         <>
             <Pressable onPress={() => toggleModal(event.id, false, true, false)}>
@@ -45,10 +51,10 @@ export default function IndividualCategory(props) {
                             <Ionicons name="people-outline" size={15} color="purple" /> Number of people attending: {event.attendees}
                         </Text>
                         <Text style={styles.modalText}>
-                            <Ionicons name="time-outline" size={15} color="purple" /> Starting at: {event.startDate}
+                            <Ionicons name="time-outline" size={15} color="purple" /> Date: {currentDate(event.startDate)}
                         </Text>
                         <Text style={styles.modalText}>
-                            <Ionicons name="time-outline" size={15} color="purple" /> Ending at: {event.endDate}
+                            <Ionicons name="time-outline" size={15} color="purple" /> Duration: 
                         </Text>
                         <Text style={styles.modalText}>
                             <Ionicons name="help" size={15} color="purple" /> Is this event wheelchair accessible? {event.wheelchairAccessible ? "Yes" : "No"}
