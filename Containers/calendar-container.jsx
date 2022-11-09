@@ -1,30 +1,17 @@
-import { View, Text } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import SearchBar from '../Components/SearchBar';
-import { event } from 'react-native-reanimated';
+import { ThemeContext } from '../Context/ThemeContext';
 import CalendarComponent from '../Components/CalendarComponent';
 import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
 } from 'react-native';
-import SliderToggle from '../Components/SliderToggle';
-import EventToggle from '../Components/EventToggle';
-import { useContext } from 'react';
-import { ThemeContext }from '../Context/ThemeContext';
-
 export default function CalendarContainer({ navigation, dark, allEvents }) {
 
     const [filteredData, setFilteredData] = useState(allEvents)
     const [searchValue, setSearchValue] = useState('')
 
-    
-    const { toggle } = useContext(ThemeContext);
-
-    const themeStyles = {
-        backgroundColor: toggle ? '#333' : '#FFFFFF',
-        color: toggle ? '#CCC' : '#333',
-    }
 
     const filter = (text) => {
         if (text) {
@@ -32,7 +19,7 @@ export default function CalendarContainer({ navigation, dark, allEvents }) {
             setSearchValue(text)
             const searchParam = text.toLowerCase().replace(/\s/g, '');
             const data = []
-            
+
             for (let index = 0; index < allEvents.length; index++) {
                 const event = allEvents[index];
                 const tags = event.tags
@@ -42,14 +29,14 @@ export default function CalendarContainer({ navigation, dark, allEvents }) {
                     const tag = tags[j].toLowerCase().replace(/\s/g, '')
                     if (tag.includes(searchParam) || name.includes(searchParam) || location.includes(searchParam)) {
                         if (!data.includes(event)) {
-                            data.push(event)    
+                            data.push(event)
                         }
-                        
+
                     }
                 }
             }
 
-            setFilteredData(data)     
+            setFilteredData(data)
         }
 
         else {
@@ -59,13 +46,16 @@ export default function CalendarContainer({ navigation, dark, allEvents }) {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            {console.log("parent: " + filteredData[0].title)}
-            <SearchBar searchText={searchValue} setSearchText={filter} theme={dark} />
-            <SliderToggle />
-            <CalendarComponent events={filteredData}/>
-            <EventToggle />
+        <SafeAreaView style={[styles.calendarContainer]}>
+            <SearchBar searchText={searchValue} theme={dark} setSearchText={filter} />
+            <CalendarComponent events={filteredData}/> 
         </SafeAreaView>
     )
 
 }
+
+const styles = StyleSheet.create({
+    calendarContainer: {
+        flex: 1
+    },
+});

@@ -4,6 +4,7 @@ import {
     View,
     StyleSheet,
     ScrollView,
+    Pressable,
 } from 'react-native';
 
 import { ThemeContext } from '../Context/ThemeContext';
@@ -15,7 +16,7 @@ import BigCategory from './BigCategory';
 
 
 export default function BigSection(props) {
-    const { title, description } = props;
+    const { title } = props;
 
     const [users, setUsers] = useState([]);
     const [events, setEvents] = useState([]);
@@ -61,7 +62,8 @@ export default function BigSection(props) {
             </Text>
             <View style={{ height: 170 }}>
                 <ScrollView horizontal={true}>
-                    <BigCategory user={users} events={events}/>
+
+                    <BigCategory user={users} events={events} />
                     {/* <BigIndividualCategory
                         imageUri={require('../Images/townhall.jpeg')}
                         users={users}
@@ -77,14 +79,15 @@ export default function BigSection(props) {
             </View>
         </View>
     ) :
-    (
+        (
         <Text>Loading..</Text>
     );
 }
 
 const styles = StyleSheet.create({
     sectionContainer: {
-        padding: 24,
+        paddingLeft: 24,
+        paddingBottom: 10
     },
     sectionTitle: {
         fontSize: 24,

@@ -1,11 +1,17 @@
-import { View, TouchableOpacity, Text} from 'react-native';
-import React, {useState, useEffect} from 'react';
-import {Agenda, AgendaEntry, AgendaSchedule} from 'react-native-calendars'; 
-import {Card} from 'react-native-paper';
-import { getUserById, getAllEvents } from '../Adaptors/BackendAdaptor';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { Agenda, AgendaEntry, AgendaSchedule } from 'react-native-calendars';
+import { Card } from 'react-native-paper';
+import { ThemeContext } from '../Context/ThemeContext';
 
 export default function CalendarComponent(props) {
+  const [{key, theme}, setTheme] = useState({key: 'dark', theme:{}})
 
+  const { toggle } = useContext(ThemeContext);
+
+  const themeStyles = {
+      calendarBackground: '#333',
+  }
   const currentDate = () => {
     const date = new Date();
     console.log(date);
@@ -17,25 +23,16 @@ export default function CalendarComponent(props) {
   let initialState = {}
   initialState[date] = []
 
-  const[userItems, setUserItems] = useState(initialState)
-  const[allItems, setAllItems] = useState(initialState)
+  const [userItems, setUserItems] = useState(initialState)
 
-  // useEffect(() => {
-  //   getUserById(1).then((res) => {
-  //     setUserItems(extractEvents(res.users.events));})
-  //   getAllEvents().then((res) => {
-  //     setAllItems(extractEvents(res.events))})
-  //     console.log(allItems)
-  // }, [])
-
-  useEffect(() => extractEvents(),[props.events])
+  useEffect(() => extractEvents(), [props.events])
 
   const extractEvents = () => {
     console.log("child: " + props.events[0].title)
-    let newItems = {...initialState}
+    let newItems = { ...initialState }
     props.events.forEach((event) => {
       let eventDate = timeToString(event.startDate);
-      if(!newItems[eventDate]) {
+      if (!newItems[eventDate]) {
         newItems[eventDate] = [event];
       }
       else {
@@ -87,10 +84,10 @@ export default function CalendarComponent(props) {
 
   const renderItem = (item) => {
     return (
-      <TouchableOpacity style={{marginTop: 10}}>
+      <TouchableOpacity style={{ marginTop: 10 }}>
         <Card>
           <Card.Content>
-          <View>
+            <View>
               <Text>{item.title}</Text>
             </View>
           </Card.Content>
@@ -99,30 +96,45 @@ export default function CalendarComponent(props) {
     )
   }
 
-    return (
-        <View style={{ flex: 1}}>
-            <Agenda
-  items={userItems}
-  // loadItemsForMonth={loadItems}
-  selected={currentDate()}
-  minDate={getLimitDate(-365)}
-  maxDate={getLimitDate(731)}
-  pastScrollRange={50}
-  futureScrollRange={50}
-  renderItem={renderItem}
-  rowHasChanged={(r1, r2) => {
-    return r1.text !== r2.text;
-  }}
-  hideKnob={false}
-  showClosingKnob={true}
-  renderEmptyDate={() => {
-    return <View />;
-  }}
-  // disabledByDefault={true}
-  // refreshing={false}
-  // refreshControl={null}
-  style={{}}
-/>
-        </View>
-    )
+  return (
+    <View style={styles.calendarComponentContainer}>
+      <Agenda
+        items={userItems}
+        // loadItemsForMonth={loadItems}
+        selected={currentDate()}
+        minDate={getLimitDate(-365)}
+        maxDate={getLimitDate(731)}
+        pastScrollRange={50}
+        futureScrollRange={50}
+        renderItem={renderItem}
+        rowHasChanged={(r1, r2) => {
+          return r1.text !== r2.text;
+        }}
+        hideKnob={false}
+        showClosingKnob={true}
+        renderEmptyDate={() => {
+          return <View />;
+        }}
+        theme={{
+          calendarBackground: '#808080',
+          dayTextColor: '#fff',
+          textDisabledColor: '#444',
+          monthTextColor: '#888',
+          agendaDayTextColor: 'yellow',
+          agendaDayNumColor: 'green',
+          agendaTodayColor: 'red',
+          agendaKnobColor: 'blue'
+        }}
+        // disabledByDefault={true}
+        // refreshing={false}
+        // refreshControl={null}
+      />
+    </View>
+  )
 }
+
+const styles = StyleSheet.create({
+  calendarComponentContainer: {
+      flex: 1,
+  },
+});
