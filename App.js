@@ -1,13 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { View, Text, Modal } from 'react-native';
-
 import HomeContainer from './Containers/home-container';
 import CalendarContainer from './Containers/calendar-container';
 import EventStack from './Navigation/EventStack';
 import ChatContainer from './Containers/chat-container';
 import NotificationsContainer from './Containers/notification-container';
-import CustomModal from './Components/CustomModal';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';

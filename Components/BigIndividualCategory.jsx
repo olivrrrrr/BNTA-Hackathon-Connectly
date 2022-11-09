@@ -9,6 +9,7 @@ import {
 import { ThemeContext } from '../Context/ThemeContext';
 import { ModalContext } from '../Context/ModalContext';
 import Modal from '../Components/ReusableModal';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function BigIndividualCategory(props) {
     const { event } = props;
@@ -35,14 +36,35 @@ export default function BigIndividualCategory(props) {
             {showModal.bigEvent === true && showModal.show && showModal.modalId === event.id ?
                 <Modal
                 >
-                    Title of Event: {event.title} {"\n"}
-                    Description: {event.description} {"\n"}
-                    Number of people attending: {event.attendees} {"\n"}
-                    Starting at: {event.startDate} and ending at: {event.endDate} {"\n"}
-                    Does this event include accessibility? {"\n"}
-                    Price: £{event.cost} {"\n"}
-                    Location to meet: {event.location} {"\n"}
-                    Will drinking be involved? {"\n"}
+                    <View style={styles.modalTextContainer}>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="calendar-outline" size={15} color="purple" /> Event: {event.title}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="information-circle-outline" size={15} color="purple" /> Details: {event.description}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="people-outline" size={15} color="purple" /> Number of people attending: {event.attendees}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="time-outline" size={15} color="purple" /> Starting at: {event.startDate}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="time-outline" size={15} color="purple" /> Ending at: {event.endDate}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="help" size={15} color="purple" /> Is this event wheelchair accessible? {event.wheelchairAccessible ? "Yes" : "No"}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="pricetag-outline" size={15} color="purple" /> Price: £{event.cost}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="location-outline" size={15} color="purple" /> Location to meet: {event.location}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            Will drinking be involved?
+                        </Text>
+                    </View>
                 </Modal> : null}
         </>
 
@@ -53,7 +75,7 @@ const styles = StyleSheet.create({
     categoryContainer: {
         height: 170,
         width: 170,
-        marginRight: 10, 
+        marginRight: 10,
         borderRadius: 15
     },
     categoryText: {
@@ -61,5 +83,13 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 20,
         fontWeight: 'bold',
+    },
+    modalTextContainer: {
+        paddingBottom: 10,
+    },
+    modalText: {
+        paddingBottom: 10,
+        fontSize: 18
     }
+
 });
