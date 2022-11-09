@@ -27,14 +27,31 @@ public class UserController {
 
     @PostMapping(value = "/users", consumes = APPLICATION_JSON_VALUE)
         public ResponseEntity addUser(@RequestBody User user) {
-        System.out.println(user.toString());
+        //System.out.println(user.toString());
         userService.addUser(user);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PutMapping(value="/addUserToEvent/event={eventId}/user={userId}")
     public ResponseEntity addEventForUser(@PathVariable ("eventId") String eventId, @PathVariable("userId") String userId) {
-        userService.addUserToEvent(eventId, userId);
+        try {
+            userService.addUserToEvent(eventId, userId);
+        } catch (Exception e) {
+            throw new RuntimeException("User already attending event");
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping(value="/removeEventFromUser/event={eventId}/user={userId}")
+    public ResponseEntity removeEventFromUser(@PathVariable ("eventId") String eventId, @PathVariable("userId") String userId) {
+        try {
+            userService.removeEventFromUser(eventId, userId);
+        } catch (Exception e) {
+            throw new RuntimeException("User not attending event");
+        }
+        //userService.removeEventFromUser(eventId, userId);
+
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

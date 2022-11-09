@@ -27,21 +27,72 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void addUserToEvent(String eventId, String userId) {
-
-        //Add user to event
+    public void addUserToEvent(String eventId, String userId) throws Exception {
+        //get the user and event data
         Event event= eventRepository.findById(eventId).get();
         List<String> eventAttendees = event.getAttendees();
-        //validation to check user isn't already to added to event
-        eventAttendees.add(userId);
-        event.setAttendees(eventAttendees);
-        eventRepository.save(event);
-
-        //Add event to user
         User user = userRepository.findById(userId).get();
         List<Event> userEvents = user.getEvents();
-        userEvents.add(event);
-        user.setEvents(userEvents);
-        userRepository.save(user);
+        //validation to check user isn't already to added to event
+        boolean canAdd = true;
+        for (int i = 0; i < eventAttendees.size(); i++) {
+            if (eventAttendees.get(i).equals(userId)) {
+                canAdd = false;
+                break;
+            }
+        }
+        if (canAdd){
+            //Add user to event
+            eventAttendees.add(userId);
+            event.setAttendees(eventAttendees);
+            eventRepository.save(event);
+
+            //Add event to user
+            userEvents.add(event);
+            user.setEvents(userEvents);
+            userRepository.save(user);
+        }
+        else{
+            throw new Exception("");
+        }
+    }
+
+    public void removeEventFromUser(String eventId, String userId) throws Exception {
+        //get the user and event data
+        Event event= eventRepository.findById(eventId).get();
+        List<String> eventAttendees = event.getAttendees();
+        User user = userRepository.findById(userId).get();
+        List<Event> userEvents = user.getEvents();
+
+        //validation to check user isn't already to added to event
+        boolean canRemove = false;
+        for (int i = 0; i < eventAttendees.size(); i++) {
+            System.out.println(userId);
+            System.out.println(eventAttendees.get(i));
+            if (eventAttendees.get(i).equals(userId)) {
+                eventAttendees.remove(i);
+                for (int j = 0; j < userEvents.size(); j++) {
+                    if (userEvents.get(j).getId().equals(eventId)){
+                        userEvents.remove(j);
+                        break;
+                    }
+                }
+                canRemove = true;
+                break;
+            }
+        }
+
+        System.out.println("Hello");
+        System.out.println(canRemove);
+
+        if (canRemove){
+            event.setAttendees(eventAttendees);
+            eventRepository.save(event);
+            user.setEvents(userEvents);
+            userRepository.save(user);
+        }
+        else {
+            throw new Exception("");
+        }
     }
 }
