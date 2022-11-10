@@ -4,10 +4,8 @@ import {
     SafeAreaView,
     ScrollView,
     StyleSheet,
-    View,
 } from 'react-native';
 
-import SliderToggle from '../Components/SliderToggle';
 import { ThemeContext } from '../Context/ThemeContext';
 import BigSection from '../Components/BigSection';
 import Section from '../Components/Section';
@@ -20,17 +18,13 @@ export default function HomeContainer({ navigation }) {
         backgroundColor: toggle ? '#333' : '#FFFFFF',
         color: toggle ? '#CCC' : '#333',
     }
+
     return (
         <SafeAreaView style={[styles.appContainer, themeStyles]}>
             <ScrollView>
-                <SliderToggle />
-                <BigSection/>
-                <View>
-                    <Section
-                        title={'My Interests'}
-                    />
-                    <SpecialSection title={'Special Section'}/>
-                </View>
+                <BigSection title={'Your Events'} />
+                <Section title={'Popular Events'} />
+                <SpecialSection title={'Psst! Remember to consider'} />
             </ScrollView>
         </SafeAreaView>
     );
@@ -39,7 +33,6 @@ export default function HomeContainer({ navigation }) {
 
 const styles = StyleSheet.create({
     appContainer: {
-        paddingHorizontal: 24,
     },
     sectionTitle: {
         fontSize: 24,

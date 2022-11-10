@@ -4,6 +4,7 @@ import {
     View,
     StyleSheet,
     ScrollView,
+    Pressable,
 } from 'react-native';
 
 import { ThemeContext } from '../Context/ThemeContext';
@@ -11,10 +12,11 @@ import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEve
 import BigIndividualCategory from './BigIndividualCategory';
 import User from '../Classes/User'
 import Event from '../Classes/Event'
+import BigCategory from './BigCategory';
 
 
 export default function BigSection(props) {
-    const { title, description } = props;
+    const { title } = props;
 
     const [users, setUsers] = useState([]);
     const [events, setEvents] = useState([]);
@@ -28,8 +30,8 @@ export default function BigSection(props) {
 
     useEffect(() => {
         let newUser = new User('4', 'Luke', 'software engineer', 'luke@lukemail.com', ['coding'], [1]);
-        let newEvent = new Event('1','Work Social 1','Lloyds Townhall', [3], [4], 'start', 'end', ['coding'], true, 5, false);
-        
+        let newEvent = new Event('1', 'Work Social 1', 'Lloyds Townhall', [3], [4], 'start', 'end', ['coding'], true, 5, false);
+
         // postUser(newUser)
         //     .then(() => {
         //         getAllUsers().then((json) => {
@@ -54,9 +56,21 @@ export default function BigSection(props) {
 
     return (users.length !== 0 && events.length !== 0) ? (
         <View style={[themeStyles, styles.sectionContainer]}>
+            <Text
+                style={[themeStyles, styles.sectionTitle]}>
+                {title}
+            </Text>
             <View style={{ height: 170 }}>
-                <ScrollView horizontal={true}>
-                    <BigIndividualCategory
+                <ScrollView
+                    horizontal={true}
+                    decelerationRate={0}
+                    snapToInterval={200} //your element width
+                    snapToAlignment="center"
+                    showsHorizontalScrollIndicator={false}
+                >
+
+                    <BigCategory user={users} events={events} />
+                    {/* <BigIndividualCategory
                         imageUri={require('../Images/townhall.jpeg')}
                         users={users}
                         event={events[0]}
@@ -65,24 +79,25 @@ export default function BigSection(props) {
                         imageUri={require('../Images/football.webp')}
                         users={users}
                         event={events[1]}
-                    />
+                    /> */}
                 </ScrollView>
 
             </View>
         </View>
     ) :
-    (
-        <Text>Loading..</Text>
-    );
+        (
+            <Text>Loading..</Text>
+        );
 }
 
 const styles = StyleSheet.create({
     sectionContainer: {
-        padding: 24,
+        padding: 24
     },
     sectionTitle: {
         fontSize: 24,
         fontWeight: '600',
+        paddingBottom: 10,
     },
     sectionDescription: {
         fontSize: 18,

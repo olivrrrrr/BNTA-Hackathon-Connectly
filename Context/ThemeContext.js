@@ -9,6 +9,7 @@ export const ThemeProvider = ({ children }) => {
         setToggle(!toggle);
     }
 
+
     return (
         <ThemeContext.Provider value={{ toggle, toggleTheme }}>
             {children}

@@ -3,26 +3,81 @@ import {
     Text,
     View,
     Image,
-    StyleSheet
+    StyleSheet,
+    Pressable,
 } from 'react-native';
 import { ThemeContext } from '../Context/ThemeContext';
+import { ModalContext } from '../Context/ModalContext';
+import BigEventModal from '../Components/BigEventModal';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function BigIndividualCategory (props) {
-    const {event} = props;
+export default function BigIndividualCategory(props) {
+    const { event } = props;
     const { toggle } = useContext(ThemeContext);
     const themeStyles = {
         borderColor: toggle ? '#FFFFFF' : '#000000',
         color: toggle ? '#FFFFFF' : '#000000',
     }
+    const { toggleModal } = useContext(ModalContext);
+    const { showModal } = useContext(ModalContext);
+
+    const dateParser = (date) => {
+        return date.split('T')[0];
+    }
+
+    const onDecline = () => {
+        // function should take this event out of 'your events' and back into popular events
+        // it should also remove it from the calendar component view
+        console.log("hi")
+    }
+
     return (
-        <View style={[styles.categoryContainer, themeStyles]}>
-            <View style={{ flex: 2 }}>
-            <Image source={event.imageURL}
-                    style={{ flex: 1, width: null, height: null, resizeMode: 'stretch', borderRadius: 15}}
-                />
-                <Text style={[themeStyles, styles.categoryText]}>{event.title}</Text>
-            </View>
-        </View>
+        <>
+            <Pressable onPress={() => toggleModal(event.id, true, false, false)}>
+                <View style={[styles.categoryContainer, themeStyles]}>
+                    <View style={{ flex: 2 }}>
+                        <Image source={event.imageURL}
+                            style={{ flex: 1, width: null, height: null, resizeMode: 'stretch', borderRadius: 15 }}
+                        />
+                        <Text style={[themeStyles, styles.categoryText]}>{event.title}</Text>
+                    </View>
+                </View>
+            </Pressable>
+            {showModal.bigEvent === true && showModal.show && showModal.modalId === event.id ?
+                <BigEventModal onDecline={onDecline}
+                >
+                    <View style={styles.modalTextContainer}>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="calendar-outline" size={15} color="purple" /> Event: {event.title}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="information-circle-outline" size={15} color="purple" /> Details: {event.description}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="people-outline" size={15} color="purple" /> Number of people attending: {event.attendees}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="time-outline" size={15} color="purple" /> Date: {dateParser(event.startDate)}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="time-outline" size={15} color="purple" /> Duration:
+                        </Text>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="help" size={15} color="purple" /> Is this event wheelchair accessible? {event.wheelchairAccessible ? "Yes" : "No"}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="pricetag-outline" size={15} color="purple" /> Price: £{event.cost}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            <Ionicons name="location-outline" size={15} color="purple" /> Location to meet: {event.location}
+                        </Text>
+                        <Text style={styles.modalText}>
+                            Will drinking be involved?
+                        </Text>
+                    </View>
+                </BigEventModal> : null}
+        </>
+
     )
 }
 
@@ -30,7 +85,7 @@ const styles = StyleSheet.create({
     categoryContainer: {
         height: 170,
         width: 170,
-        marginRight: 10, 
+        marginRight: 10,
         borderRadius: 15
     },
     categoryText: {
@@ -38,5 +93,13 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 20,
         fontWeight: 'bold',
+    },
+    modalTextContainer: {
+        paddingBottom: 10,
+    },
+    modalText: {
+        paddingBottom: 10,
+        fontSize: 18
     }
+
 });

@@ -7,10 +7,8 @@ import {
 } from 'react-native';
 
 import { ThemeContext } from '../Context/ThemeContext';
-import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent } from '../Adaptors/BackendAdaptor';
-import IndividualCategory from './IndividualCategory';
-import User from '../Classes/User'
-import Event from '../Classes/Event'
+import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent, getPopularEvents } from '../Adaptors/BackendAdaptor';
+import Category from './Category';
 
 
 export default function Section(props) {
@@ -18,6 +16,7 @@ export default function Section(props) {
 
     const [users, setUsers] = useState([]);
     const [events, setEvents] = useState([]);
+    const [popularEvents, setPopularEvents] = useState([]);
     const { toggle } = useContext(ThemeContext);
 
     const themeStyles = {
@@ -29,7 +28,7 @@ export default function Section(props) {
     useEffect(() => {
         // let newUser = new User('4', 'Luke', 'software engineer', 'luke@lukemail.com', ['coding'], [1]);
         // let newEvent = new Event('1','Work Social 1','Lloyds Townhall', [3], [4], 'start', 'end', ['coding'], true, 5, false);
-        
+
         // postUser(newUser)
         //     .then(() => {
         //         getAllUsers().then((json) => {
@@ -50,6 +49,10 @@ export default function Section(props) {
         getAllUsers().then((json) => {
             setUsers(json.users);
         })
+        getPopularEvents().then((json) => {
+            console.log(popularEvents.length)
+            setPopularEvents(json.popularEvents);
+        })
     }, [])
 
     return (users.length !== 0 && events.length !== 0) ? (
@@ -59,28 +62,29 @@ export default function Section(props) {
                 {title}
             </Text>
             <View style={{ height: 130, marginTop: 10 }}>
-                <ScrollView horizontal={true}>
-                    <IndividualCategory
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                    <Category user={users} popularEvents={popularEvents} />
+                    {/* <IndividualCategory
                         users={users}
                         event={events[0]}
                     />
                     <IndividualCategory
                         users={users}
                         event={events[1]}
-                    />
+                    /> */}
                 </ScrollView>
 
             </View>
         </View>
     ) :
-    (
-        <Text>Loading..</Text>
-    );
+        (
+            <Text>Loading..</Text>
+        );
 }
 
 const styles = StyleSheet.create({
     sectionContainer: {
-        padding: 24,
+        paddingLeft: 24,
     },
     sectionTitle: {
         fontSize: 24,
