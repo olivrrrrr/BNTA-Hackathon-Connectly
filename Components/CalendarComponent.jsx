@@ -24,20 +24,20 @@ export default function CalendarComponent(props) {
 
   useEffect(() => extractEvents(), [props.events])
 
-  useEffect(() => {
-    const getData = async () => {
-      const response = await fetch();
-      const data = await response.json();
-      console.log(data);
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const response = await fetch();
+  //     const data = await response.json();
+  //     console.log(data);
 
-      const mappedData = data.map(item => {
-        return {
-          ...post,
-        }
-      })
-    }
+  //     const mappedData = data.map(item => {
+  //       return {
+  //         ...post,
+  //       }
+  //     })
+  //   }
 
-  })
+  // })
 
   const extractEvents = () => {
     // console.log("child: " + props.events[0].title)
