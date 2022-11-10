@@ -4,5 +4,5 @@ server:
 spring:
   data:
     mongodb:
-#      uri:
-#      database: pending-moderation-hackathon
+      uri: mongodb+srv://lukef:Rlyf6jzNYt36ddfz@cluster0.idvqx.mongodb.net/?retryWrites=true&w=majority
+      database: pending-moderation-hackathon
