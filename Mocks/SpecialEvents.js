@@ -4,7 +4,7 @@ export const specialEvents = [
         title: "Eid al-Fitr",
         description: "Islamic holiday to celebrate the end of Ramadan",
         startDate: "2023-04-21T00:00:00.000+00:00",
-        endDate: "20223-04-22T00:00:00.000+00:00",
+        endDate: "2023-04-22T00:00:00.000+00:00",
         imageURL: require('../Images/Eid_al-Fitr_prayer,_Suleymaniye_Mosque,_Istanbul_-_Aug_30,_2011.jpg'),
     },
     {

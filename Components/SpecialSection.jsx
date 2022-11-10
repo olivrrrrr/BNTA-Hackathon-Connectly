@@ -44,7 +44,10 @@ export default function Section(props) {
                 {title}
             </Text>
             <View style={{ height: 150, marginTop: 10 }}>
-                <ScrollView horizontal={true}>
+                <ScrollView 
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                >
                     <SpecialIndividualEvents specialEvents={specialEvents} user={users}/>
                 </ScrollView>
 

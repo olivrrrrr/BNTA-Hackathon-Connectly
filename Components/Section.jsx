@@ -62,7 +62,7 @@ export default function Section(props) {
                 {title}
             </Text>
             <View style={{ height: 130, marginTop: 10 }}>
-                <ScrollView horizontal={true}>
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     <Category user={users} popularEvents={popularEvents} />
                     {/* <IndividualCategory
                         users={users}

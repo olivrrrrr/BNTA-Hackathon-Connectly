@@ -1,7 +1,7 @@
 import BigIndividualCategory from "./BigIndividualCategory";
 import React, { useContext, useState, useEffect } from 'react';
 import {View} from 'react-native';
-import Modal from '../Components/ReusableModal';
+import Modal from './popularEventModal';
 import { ModalContext } from '../Context/ModalContext';
 
 export default function BigCategory({ events, user }) {

@@ -5,13 +5,13 @@ import CalendarContainer from './Containers/calendar-container';
 import EventStack from './Navigation/EventStack';
 import OthersContainer from './Containers/others-container';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { ThemeContext } from './Context/ThemeContext';
 import { mockServer } from './Mocks/MockServer';
 import { getAllEvents } from './Adaptors/BackendAdaptor';
 import { getHeaderTitle } from '@react-navigation/elements';
 import Header from './Components/Header';
+import { Animated } from 'react-native';
 
 if (window.server) {
   server.shutdown()
@@ -21,7 +21,6 @@ window.server = mockServer();
 
 const App = () => {
   const Tab = createBottomTabNavigator();
-  const Stack = createStackNavigator();
 
   const homeName = "Home";
   const calenderName = "calendar";
@@ -76,10 +75,12 @@ const App = () => {
             height: 90,
             paddingHorizontal: 5,
             position: 'absolute',
+            borderWidth: 0.2,
+            borderRadius: 40,
           },
           tabBarActiveTintColor: 'tomato',
           tabBarShowLabel: false,
-          header: ({ navigation, route, options }) => {
+          header: ({ route, options }) => {
             const title = getHeaderTitle(options, route.name);
 
             return <Header title={title} style={options.headerStyle} />;

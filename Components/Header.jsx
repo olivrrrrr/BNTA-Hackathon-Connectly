@@ -26,9 +26,13 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    padding: 20,
+    paddingTop: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 10,
     borderBottomWidth: 0.3,
     justifyContent: 'center',
+    borderRadius: 50,
   },
   headerTitle: {
     marginTop: 30,

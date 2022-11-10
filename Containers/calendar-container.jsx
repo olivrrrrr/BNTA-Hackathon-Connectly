@@ -46,7 +46,7 @@ export default function CalendarContainer({ navigation, dark, allEvents }) {
     return (
         <SafeAreaView style={[styles.calendarContainer]}>
             <SearchBar searchText={searchValue} theme={dark} setSearchText={filter} />
-            <CalendarComponent events={filteredData} />
+            <CalendarComponent events={filteredData}/> 
         </SafeAreaView>
     )
 

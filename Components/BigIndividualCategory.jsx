@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { ThemeContext } from '../Context/ThemeContext';
 import { ModalContext } from '../Context/ModalContext';
-import Modal from '../Components/ReusableModal';
+import BigEventModal from '../Components/BigEventModal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function BigIndividualCategory(props) {
@@ -21,9 +21,14 @@ export default function BigIndividualCategory(props) {
     const { toggleModal } = useContext(ModalContext);
     const { showModal } = useContext(ModalContext);
 
-    const currentDate = () => {
-        const date = new Date();
-        return date.toISOString().split('T')[0];
+    const dateParser = (date) => {
+        return date.split('T')[0];
+    }
+
+    const onDecline = () => {
+        // function should take this event out of 'your events' and back into popular events
+        // it should also remove it from the calendar component view
+        console.log("hi")
     }
 
     return (
@@ -39,7 +44,7 @@ export default function BigIndividualCategory(props) {
                 </View>
             </Pressable>
             {showModal.bigEvent === true && showModal.show && showModal.modalId === event.id ?
-                <Modal
+                <BigEventModal onDecline={onDecline}
                 >
                     <View style={styles.modalTextContainer}>
                         <Text style={styles.modalText}>
@@ -52,7 +57,7 @@ export default function BigIndividualCategory(props) {
                             <Ionicons name="people-outline" size={15} color="purple" /> Number of people attending: {event.attendees}
                         </Text>
                         <Text style={styles.modalText}>
-                            <Ionicons name="time-outline" size={15} color="purple" /> Date: {currentDate(event.startDate)}
+                            <Ionicons name="time-outline" size={15} color="purple" /> Date: {dateParser(event.startDate)}
                         </Text>
                         <Text style={styles.modalText}>
                             <Ionicons name="time-outline" size={15} color="purple" /> Duration:
@@ -70,7 +75,7 @@ export default function BigIndividualCategory(props) {
                             Will drinking be involved?
                         </Text>
                     </View>
-                </Modal> : null}
+                </BigEventModal> : null}
         </>
 
     )

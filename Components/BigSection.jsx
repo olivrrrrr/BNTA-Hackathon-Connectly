@@ -61,7 +61,13 @@ export default function BigSection(props) {
                 {title}
             </Text>
             <View style={{ height: 170 }}>
-                <ScrollView horizontal={true}>
+                <ScrollView
+                    horizontal={true}
+                    decelerationRate={0}
+                    snapToInterval={200} //your element width
+                    snapToAlignment="center"
+                    showsHorizontalScrollIndicator={false}
+                >
 
                     <BigCategory user={users} events={events} />
                     {/* <BigIndividualCategory

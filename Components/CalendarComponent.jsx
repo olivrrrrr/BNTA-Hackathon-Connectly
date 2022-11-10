@@ -1,13 +1,16 @@
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Pressable } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
 import { Agenda, AgendaEntry, AgendaSchedule } from 'react-native-calendars';
 import { Card } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ModalContext } from '../Context/ModalContext';
+import SpecialModal from './SpecialModal';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function CalendarComponent(props) {
 
   const currentDate = () => {
     const date = new Date();
-    // console.log(date);
     return date.toISOString().split('T')[0];
   }
 
@@ -16,9 +19,25 @@ export default function CalendarComponent(props) {
   let initialState = {}
   initialState[date] = []
 
+
   const [userItems, setUserItems] = useState(initialState)
 
   useEffect(() => extractEvents(), [props.events])
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch();
+      const data = await response.json();
+      console.log(data);
+
+      const mappedData = data.map(item => {
+        return {
+          ...post,
+        }
+      })
+    }
+
+  })
 
   const extractEvents = () => {
     // console.log("child: " + props.events[0].title)
@@ -35,6 +54,10 @@ export default function CalendarComponent(props) {
     setUserItems(newItems);
   }
 
+  const dateParser = (date) => {
+    return date.split('T')[0];
+}
+
   const timeToString = (time) => {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
@@ -45,6 +68,8 @@ export default function CalendarComponent(props) {
     date.setDate(date.getDate() + days)
     return date.toISOString().split('T')[0];
   }
+
+  const { showModal, toggleModal } = useContext(ModalContext);
 
   // const[items, setItems] = useState({
   //   '2022-11-05': [{name: 'event1'}, {name: 'event3'}, {name: 'event4'}],
@@ -76,54 +101,72 @@ export default function CalendarComponent(props) {
   // }
 
   const renderItem = (item) => {
+    // item is an event extracted from the function
     return (
-      <TouchableOpacity style={{ marginTop: 10 }}>
-        <Card>
-          <Card.Content>
-            <View>
-              <Text>{item.title}</Text>
-            </View>
-          </Card.Content>
-        </Card>
+      <>
+      <TouchableOpacity onPress={() => toggleModal(item.id)}>
+          <Card style={styles.cardContainer}>
+            <Card.Content style={styles.cardContent}>
+              <View>
+                <Text>{item.title}</Text>
+              </View>
+            </Card.Content>
+          </Card>
       </TouchableOpacity>
+      {showModal.show && showModal.modalId === item.id ?
+        <SpecialModal
+        >
+            <View style={styles.modalTextContainer}>
+                <Text style={styles.modalText}>
+                    <Ionicons name="calendar" size={15} color="purple" /> {item.title}
+                </Text>
+                <Text style={styles.modalText}>
+                    <Ionicons name="information-circle" size={15} color="purple" /> What is it? {item.description}
+                </Text>
+                <Text style={styles.modalText}>
+                    <Ionicons name="time-outline" size={15} color="purple" /> Start Date: {dateParser(item.startDate)}
+                </Text>
+                <Text style={styles.modalText}>
+                    <Ionicons name="time-outline" size={15} color="purple" /> End Date: {dateParser(item.endDate)}
+                </Text>
+            </View>
+        </SpecialModal> : null}
+        </>
     )
   }
 
   return (
-    <View style={styles.calendarComponentContainer}>
-      {console.log(userItems)}
+    <SafeAreaView style={styles.calendarComponentContainer}>
       <Agenda
         items={userItems}
         // loadItemsForMonth={loadItems}
-        selected={currentDate()}
-        minDate={getLimitDate(-365)}
-        maxDate={getLimitDate(731)}
-        pastScrollRange={50}
-        futureScrollRange={50}
+        // selected={currentDate()}
+        // minDate={getLimitDate(-365)}
+        // maxDate={getLimitDate(731)}
+        // pastScrollRange={50}
+        // futureScrollRange={50}
         renderItem={renderItem}
-        rowHasChanged={(r1, r2) => {
-          return r1.text !== r2.text;
-        }}
-        hideKnob={false}
-        showClosingKnob={true}
-        renderEmptyDate={() => {
-          return <View />;
-        }}
-        theme={{
-          calendarBackground: '#808080',
-          dayTextColor: 'white',
-          textDisabledColor: '#444',
-          monthTextColor: '#888',
-          agendaDayTextColor: 'yellow',
-          agendaDayNumColor: 'green',
-          agendaTodayColor: 'red',
-          agendaKnobColor: 'white'
-        }}
+        // rowHasChanged={(r1, r2) => {
+        //   return r1.text !== r2.text;
+        // }}
+        // hideKnob={false}
+        // showClosingKnob={true}
+        // renderEmptyDate={() => {
+        //   return <View />;
+        // }}
+        // theme={{
+        //   dayTextColor: 'white',
+        //   textDisabledColor: '#444',
+        //   monthTextColor: '#888',
+        //   agendaDayTextColor: '#808080',
+        //   agendaTodayColor: '#808080',
+        //   agendaKnobColor: 'white'
+        // }}
       // disabledByDefault={true}
       // refreshing={false}
       // refreshControl={null}
       />
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -131,4 +174,15 @@ const styles = StyleSheet.create({
   calendarComponentContainer: {
     flex: 1,
   },
+  cardContainer: {
+    marginTop: 30,
+    marginRight: 20,
+    borderRadius: 10
+  },
+  cardContent: {
+    marginTop:0,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });

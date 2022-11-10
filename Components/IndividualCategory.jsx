@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { ThemeContext } from '../Context/ThemeContext';
 import { ModalContext } from '../Context/ModalContext';
-import Modal from '../Components/ReusableModal';
+import Modal from './popularEventModal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function IndividualCategory(props) {
@@ -20,9 +20,16 @@ export default function IndividualCategory(props) {
     }
     const { showModal, toggleModal } = useContext(ModalContext);
 
-    const currentDate = () => {
-        const date = new Date();
-        return date.toISOString().split('T')[0];
+    const dateParser = (date) => {
+        return date.split('T')[0];
+    }
+
+    const handleOnAccept = () => {
+        console.log("accept")
+    }
+
+    const handleOnDecline = () => {
+        console.log("decline")
     }
 
     return (
@@ -38,7 +45,7 @@ export default function IndividualCategory(props) {
                 </View>
             </Pressable>
             {showModal.show && showModal.normalEvent === true && showModal.modalId === event.id ?
-                <Modal
+                <Modal onAccept={handleOnAccept} onDecline={handleOnDecline}
                 >
                     <View style={styles.modalTextContainer}>
                         <Text style={styles.modalText}>
@@ -51,7 +58,7 @@ export default function IndividualCategory(props) {
                             <Ionicons name="people-outline" size={15} color="purple" /> Number of people attending: {event.attendees}
                         </Text>
                         <Text style={styles.modalText}>
-                            <Ionicons name="time-outline" size={15} color="purple" /> Date: {currentDate(event.startDate)}
+                            <Ionicons name="time-outline" size={15} color="purple" /> Date: {dateParser(event.startDate)}
                         </Text>
                         <Text style={styles.modalText}>
                             <Ionicons name="time-outline" size={15} color="purple" /> Duration: 

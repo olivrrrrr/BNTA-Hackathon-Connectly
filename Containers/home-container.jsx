@@ -6,7 +6,6 @@ import {
     StyleSheet,
 } from 'react-native';
 
-import SliderToggle from '../Components/SliderToggle';
 import { ThemeContext } from '../Context/ThemeContext';
 import BigSection from '../Components/BigSection';
 import Section from '../Components/Section';
@@ -34,7 +33,6 @@ export default function HomeContainer({ navigation }) {
 
 const styles = StyleSheet.create({
     appContainer: {
-        paddingHorizontal: 24,
     },
     sectionTitle: {
         fontSize: 24,

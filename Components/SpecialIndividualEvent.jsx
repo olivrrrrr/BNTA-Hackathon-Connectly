@@ -20,9 +20,8 @@ export default function SpecialIndividualEvent(props) {
     }
     const { showModal, toggleModal } = useContext(ModalContext);
 
-    const currentDate = () => {
-        const date = new Date();
-        return date.toISOString().split('T')[0];
+    const dateParser = (date) => {
+        return date.split('T')[0];
     }
 
     return (
@@ -48,10 +47,10 @@ export default function SpecialIndividualEvent(props) {
                             <Ionicons name="information-circle" size={15} color="purple" /> What is it? {event.description}
                         </Text>
                         <Text style={styles.modalText}>
-                            <Ionicons name="time-outline" size={15} color="purple" /> Start Date: {currentDate(event.startDate)}
+                            <Ionicons name="time-outline" size={15} color="purple" /> Start Date: {dateParser(event.startDate)}
                         </Text>
                         <Text style={styles.modalText}>
-                            <Ionicons name="time-outline" size={15} color="purple" /> End Date: {currentDate(event.endDate)}
+                            <Ionicons name="time-outline" size={15} color="purple" /> End Date: {dateParser(event.endDate)}
                         </Text>
                     </View>
                 </SpecialModal> : null}
