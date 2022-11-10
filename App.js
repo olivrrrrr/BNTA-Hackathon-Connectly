@@ -1,19 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { View, Text, Modal } from 'react-native';
-
 import HomeContainer from './Containers/home-container';
 import CalendarContainer from './Containers/calendar-container';
 import EventStack from './Navigation/EventStack';
-import ChatContainer from './Containers/chat-container';
-import NotificationsContainer from './Containers/notification-container';
-import CustomModal from './Components/CustomModal';
+import OthersContainer from './Containers/others-container';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { ThemeContext } from './Context/ThemeContext';
 import { mockServer } from './Mocks/MockServer';
 import { getAllEvents } from './Adaptors/BackendAdaptor';
+import { getHeaderTitle } from '@react-navigation/elements';
+import Header from './Components/Header';
+import { Animated } from 'react-native';
 
 if (window.server) {
   server.shutdown()
@@ -23,13 +21,11 @@ window.server = mockServer();
 
 const App = () => {
   const Tab = createBottomTabNavigator();
-  const Stack = createStackNavigator();
 
   const homeName = "Home";
   const calenderName = "calendar";
-  const notificationsName = "notifications";
+  const othersName = "others";
   const createEventName = "create";
-  const chatName = "chat";
 
   const { toggle } = useContext(ThemeContext);
 
@@ -37,7 +33,7 @@ const App = () => {
     colors: {
       background: toggle ? '#333' : '#FFFFFF',
       card: toggle ? '#333' : '#FFFFFF',
-      border: toggle ? '#333' : '#CCC',
+      border: toggle ? '#CCC' : '#333',
       text: toggle ? '#CCC' : '#333',
       notification: 'rgb(255, 69, 58)',
     },
@@ -58,7 +54,6 @@ const App = () => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             let rn = route.name;
-            console.log(route);
 
             if (rn === homeName) {
               iconName = focused ? 'home' : 'home-outline';
@@ -66,14 +61,11 @@ const App = () => {
             } else if (rn === calenderName) {
               iconName = focused ? 'calendar' : 'calendar-outline';
               color = focused ? 'tomato' : color;
-            } else if (rn === notificationsName) {
-              iconName = focused ? 'notifications' : 'notifications-outline';
+            } else if (rn === othersName) {
+              iconName = focused ? 'settings' : 'settings-outline';
               color = focused ? 'tomato' : color;
             } else if (rn === createEventName) {
               iconName = focused ? 'add-circle' : 'add-circle-outline';
-              color = focused ? 'tomato' : color;
-            } else if (rn === chatName) {
-              iconName = focused ? 'chatbubble' : 'chatbubble-outline';
               color = focused ? 'tomato' : color;
             }
 
@@ -83,18 +75,23 @@ const App = () => {
             height: 90,
             paddingHorizontal: 5,
             position: 'absolute',
+            borderWidth: 0.2,
+            borderRadius: 40,
           },
           tabBarActiveTintColor: 'tomato',
           tabBarShowLabel: false,
-          headerShown: false
+          header: ({ route, options }) => {
+            const title = getHeaderTitle(options, route.name);
+
+            return <Header title={title} style={options.headerStyle} />;
+          }
         })}
       >
 
         <Tab.Screen name={homeName} component={HomeContainer} />
-        <Tab.Screen name={calenderName} children={() => <CalendarContainer dark={toggle} allEvents={events}/>} />
+        <Tab.Screen name={calenderName} children={() => <CalendarContainer dark={toggle} allEvents={events} />} />
         <Tab.Screen name={createEventName} component={EventStack} />
-        <Tab.Screen name={notificationsName} component={NotificationsContainer} />
-        <Tab.Screen name={chatName} component={ChatContainer} />
+        <Tab.Screen name={othersName} component={OthersContainer} />
 
       </Tab.Navigator>
     </NavigationContainer>

@@ -4,6 +4,7 @@ import {
     View,
     StyleSheet,
     ScrollView,
+    Pressable,
 } from 'react-native';
 
 import { ThemeContext } from '../Context/ThemeContext';
@@ -15,7 +16,7 @@ import BigCategory from './BigCategory';
 
 
 export default function BigSection(props) {
-    const { title, description } = props;
+    const { title } = props;
 
     const [users, setUsers] = useState([]);
     const [events, setEvents] = useState([]);
@@ -29,8 +30,8 @@ export default function BigSection(props) {
 
     useEffect(() => {
         let newUser = new User('4', 'Luke', 'software engineer', 'luke@lukemail.com', ['coding'], [1]);
-        let newEvent = new Event('1','Work Social 1','Lloyds Townhall', [3], [4], 'start', 'end', ['coding'], true, 5, false);
-        
+        let newEvent = new Event('1', 'Work Social 1', 'Lloyds Townhall', [3], [4], 'start', 'end', ['coding'], true, 5, false);
+
         // postUser(newUser)
         //     .then(() => {
         //         getAllUsers().then((json) => {
@@ -60,8 +61,15 @@ export default function BigSection(props) {
                 {title}
             </Text>
             <View style={{ height: 170 }}>
-                <ScrollView horizontal={true}>
-                    <BigCategory user={users} events={events}/>
+                <ScrollView
+                    horizontal={true}
+                    decelerationRate={0}
+                    snapToInterval={200} //your element width
+                    snapToAlignment="center"
+                    showsHorizontalScrollIndicator={false}
+                >
+
+                    <BigCategory user={users} events={events} />
                     {/* <BigIndividualCategory
                         imageUri={require('../Images/townhall.jpeg')}
                         users={users}
@@ -77,18 +85,19 @@ export default function BigSection(props) {
             </View>
         </View>
     ) :
-    (
-        <Text>Loading..</Text>
-    );
+        (
+            <Text>Loading..</Text>
+        );
 }
 
 const styles = StyleSheet.create({
     sectionContainer: {
-        padding: 24,
+        padding: 24
     },
     sectionTitle: {
         fontSize: 24,
         fontWeight: '600',
+        paddingBottom: 10,
     },
     sectionDescription: {
         fontSize: 18,

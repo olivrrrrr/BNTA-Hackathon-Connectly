@@ -15,10 +15,10 @@ import SpecialIndividualEvents from './SpecialIndividualEvents';
 
 
 export default function Section(props) {
-    const { title, description } = props;
+    const { title } = props;
 
     const [users, setUsers] = useState([]);
-    const [events, setEvents] = useState([]);
+    const [specialEvents, setSpecialEvents] = useState([]);
     const { toggle } = useContext(ThemeContext);
 
     const themeStyles = {
@@ -30,22 +30,25 @@ export default function Section(props) {
     useEffect(() => {
 
         getAllSpecialEvents().then((json) => {
-            setEvents(json.specialEvents);
+            setSpecialEvents(json.specialEvents);
         })
         getAllUsers().then((json) => {
             setUsers(json.users);
         })
     }, [])
 
-    return (users.length !== 0 && events.length !== 0) ? (
+    return (users.length !== 0 && specialEvents.length !== 0) ? (
         <View style={[themeStyles, styles.sectionContainer]}>
             <Text
                 style={[themeStyles, styles.sectionTitle]}>
                 {title}
             </Text>
             <View style={{ height: 150, marginTop: 10 }}>
-                <ScrollView horizontal={true}>
-                    <SpecialIndividualEvents events={events} user={users}/>
+                <ScrollView 
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                >
+                    <SpecialIndividualEvents specialEvents={specialEvents} user={users}/>
                 </ScrollView>
 
             </View>
