@@ -5,7 +5,6 @@ import { ModalContext } from '../Context/ModalContext';
 export default function SpecialModal(props) {
     let children = props.children;
     let onDecline = props.onDecline;
-
     const { containerStyle, textStyle, sectionStyle } = styles;
     const { toggleModal } = useContext(ModalContext);
     return (
@@ -25,8 +24,8 @@ export default function SpecialModal(props) {
                         <Text style={textStyle}>
                             {children}
                         </Text>
-                        <Text style={textStyle}>You are currently attending this event. To change your mind please press decline!</Text>
-                        <Button onPress={onDecline} title="Decline" />
+                        <Text style={textStyle}>You are currently attending this event. To change your mind please press remove!</Text>
+                        <Button onPress={onDecline} title="Remove" />
                     </View>
                 </View>
             </TouchableOpacity>

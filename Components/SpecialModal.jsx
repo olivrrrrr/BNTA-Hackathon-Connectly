@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, Modal, Button, TouchableOpacity } from 'react-native';
+import { View, Text, Modal, TouchableOpacity } from 'react-native';
 import { ModalContext } from '../Context/ModalContext';
 
 export default function SpecialModal(props) {

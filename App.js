@@ -6,13 +6,13 @@ import EventStack from './Navigation/EventStack';
 import OthersContainer from './Containers/others-container';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import EventNameScreen from './Components/CreateEvent/EventNameScreen';
 import { ThemeContext } from './Context/ThemeContext';
 import { mockServer } from './Mocks/MockServer';
 import { getAllEvents } from './Adaptors/BackendAdaptor';
 import { getHeaderTitle } from '@react-navigation/elements';
 import Header from './Components/Header';
-import { Animated } from 'react-native';
-
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 if (window.server) {
   server.shutdown()
 }
@@ -47,6 +47,7 @@ const App = () => {
   }, [])
 
   return (
+    <SafeAreaProvider>
     <NavigationContainer theme={MyTheme}>
       <Tab.Navigator
         initialRouteName={homeName}
@@ -93,8 +94,10 @@ const App = () => {
         <Tab.Screen name={createEventName} component={EventStack} />
         <Tab.Screen name={othersName} component={OthersContainer} />
 
+
       </Tab.Navigator>
     </NavigationContainer>
+    </SafeAreaProvider>
   )
 };
 

@@ -1,6 +1,6 @@
 import { View, TouchableOpacity, Text, StyleSheet, Pressable } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
-import { Agenda, AgendaEntry, AgendaSchedule } from 'react-native-calendars';
+import { Agenda } from 'react-native-calendars';
 import { Card } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ModalContext } from '../Context/ModalContext';
@@ -24,23 +24,7 @@ export default function CalendarComponent(props) {
 
   useEffect(() => extractEvents(), [props.events])
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const response = await fetch();
-  //     const data = await response.json();
-  //     console.log(data);
-
-  //     const mappedData = data.map(item => {
-  //       return {
-  //         ...post,
-  //       }
-  //     })
-  //   }
-
-  // })
-
   const extractEvents = () => {
-    // console.log("child: " + props.events[0].title)
     let newItems = { ...initialState }
     props.events.forEach((event) => {
       let eventDate = timeToString(event.startDate);

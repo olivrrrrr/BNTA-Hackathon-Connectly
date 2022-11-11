@@ -1,7 +1,5 @@
-import {View,TextInput,Text,StyleSheet} from "react-native";
+import { View, TextInput, StyleSheet} from "react-native";
 import React from "react";
-import { ThemeContext } from '../Context/ThemeContext';
-import { useContext } from 'react';
 
 const SearchBar = (props)=>{
 

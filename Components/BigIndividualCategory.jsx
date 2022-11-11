@@ -12,7 +12,7 @@ import BigEventModal from '../Components/BigEventModal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function BigIndividualCategory(props) {
-    const { event } = props;
+    const { event, handleDecline, index } = props;
     const { toggle } = useContext(ThemeContext);
     const themeStyles = {
         borderColor: toggle ? '#FFFFFF' : '#000000',
@@ -20,15 +20,8 @@ export default function BigIndividualCategory(props) {
     }
     const { toggleModal } = useContext(ModalContext);
     const { showModal } = useContext(ModalContext);
-
     const dateParser = (date) => {
         return date.split('T')[0];
-    }
-
-    const onDecline = () => {
-        // function should take this event out of 'your events' and back into popular events
-        // it should also remove it from the calendar component view
-        console.log("hi")
     }
 
     return (
@@ -44,7 +37,7 @@ export default function BigIndividualCategory(props) {
                 </View>
             </Pressable>
             {showModal.bigEvent === true && showModal.show && showModal.modalId === event.id ?
-                <BigEventModal onDecline={onDecline}
+                <BigEventModal onDecline={() => showModal.bigEvent && handleDecline(index)}
                 >
                     <View style={styles.modalTextContainer}>
                         <Text style={styles.modalText}>

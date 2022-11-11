@@ -1,26 +1,23 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import {
     Text,
     View,
     StyleSheet,
     ScrollView,
-    Pressable,
 } from 'react-native';
 
 import { ThemeContext } from '../Context/ThemeContext';
-import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent } from '../Adaptors/BackendAdaptor';
-import BigIndividualCategory from './BigIndividualCategory';
-import User from '../Classes/User'
-import Event from '../Classes/Event'
 import BigCategory from './BigCategory';
+import { EventContext } from '../Context/EventContext';
 
 
 export default function BigSection(props) {
     const { title } = props;
 
     const [users, setUsers] = useState([]);
-    const [events, setEvents] = useState([]);
     const { toggle } = useContext(ThemeContext);
+
+    const { events, removeEvent } = useContext(EventContext);
 
     const themeStyles = {
         backgroundColor: toggle ? '#333' : '#FFFFFF',
@@ -28,33 +25,39 @@ export default function BigSection(props) {
         borderColor: toggle ? '#FFFFFF' : '#333',
     }
 
-    useEffect(() => {
-        let newUser = new User('4', 'Luke', 'software engineer', 'luke@lukemail.com', ['coding'], [1]);
-        let newEvent = new Event('1', 'Work Social 1', 'Lloyds Townhall', [3], [4], 'start', 'end', ['coding'], true, 5, false);
+    // const removeEvent = (key) => {
+    //     let tempEvents = events;
+    //     setEvents(tempEvents.slice(0, key).concat(tempEvents.slice(++key, tempEvents.length)))
+    //     console.log(key);
+    // }
 
-        // postUser(newUser)
-        //     .then(() => {
-        //         getAllUsers().then((json) => {
-        //             setUsers(json.users);
-        //         })
-        //     })
+    // useEffect(() => {
+    //     // let newUser = new User('4', 'Luke', 'software engineer', 'luke@lukemail.com', ['coding'], [1]);
+    //     // let newEvent = new Event('1', 'Work Social 1', 'Lloyds Townhall', [3], [4], 'start', 'end', ['coding'], true, 5, false);
 
-        // postEvent(newEvent)
-        //     .then(() => {
-        //         getAllEvents().then((json) => {
-        //             setEvents(json.events);
-        //         })
-        //     })
+    //     // postUser(newUser)
+    //     //     .then(() => {
+    //     //         getAllUsers().then((json) => {
+    //     //             setUsers(json.users);
+    //     //         })
+    //     //     })
 
-        getAllEvents().then((json) => {
-            setEvents(json.events);
-        })
-        getAllUsers().then((json) => {
-            setUsers(json.users);
-        })
-    }, [])
+    //     // postEvent(newEvent)
+    //     //     .then(() => {
+    //     //         getAllEvents().then((json) => {
+    //     //             setEvents(json.events);
+    //     //         })
+    //     //     })
 
-    return (users.length !== 0 && events.length !== 0) ? (
+    //     getAllEvents().then((json) => {
+    //         setEvents(json.events);
+    //     })
+    //     // getAllUsers().then((json) => {
+    //     //     setUsers(json.users);
+    //     // })
+    // }, [])
+
+    return (events.length !== 0) ? (
         <View style={[themeStyles, styles.sectionContainer]}>
             <Text
                 style={[themeStyles, styles.sectionTitle]}>
@@ -69,7 +72,7 @@ export default function BigSection(props) {
                     showsHorizontalScrollIndicator={false}
                 >
 
-                    <BigCategory user={users} events={events} />
+                    <BigCategory user={users} events={events} handleDecline={removeEvent} />
                     {/* <BigIndividualCategory
                         imageUri={require('../Images/townhall.jpeg')}
                         users={users}
@@ -86,7 +89,13 @@ export default function BigSection(props) {
         </View>
     ) :
         (
-            <Text>Loading..</Text>
+            <View style={styles.sectionContainer}>
+                <Text
+                    style={[themeStyles, styles.sectionTitle]}>
+                    {title}
+                </Text>
+                <Text style={styles.noEventSection}>You are attending no events!</Text>
+            </View>
         );
 }
 
@@ -102,5 +111,12 @@ const styles = StyleSheet.create({
     sectionDescription: {
         fontSize: 18,
         fontWeight: '400',
+    },
+    noEventSection: {
+        padding: 25,
+        fontSize: 30,
+        fontWeight: 'bold',
+        justifyContent: 'center'
     }
+
 });

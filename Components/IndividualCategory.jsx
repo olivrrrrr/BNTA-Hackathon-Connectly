@@ -10,10 +10,13 @@ import { ThemeContext } from '../Context/ThemeContext';
 import { ModalContext } from '../Context/ModalContext';
 import Modal from './popularEventModal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { EventContext } from '../Context/EventContext';
 
 export default function IndividualCategory(props) {
     const { event } = props;
+
     const { toggle } = useContext(ThemeContext);
+    const { handleOnAccept, eventComparison } = useContext(EventContext)
     const themeStyles = {
         borderColor: toggle ? '#FFFFFF' : '#000000',
         color: toggle ? '#FFFFFF' : '#000000',
@@ -24,12 +27,8 @@ export default function IndividualCategory(props) {
         return date.split('T')[0];
     }
 
-    const handleOnAccept = () => {
-        console.log("accept")
-    }
-
     const handleOnDecline = () => {
-        console.log("decline")
+        toggleModal()
     }
 
     return (
@@ -45,7 +44,11 @@ export default function IndividualCategory(props) {
                 </View>
             </Pressable>
             {showModal.show && showModal.normalEvent === true && showModal.modalId === event.id ?
-                <Modal onAccept={handleOnAccept} onDecline={handleOnDecline}
+                <Modal
+                    onAccept={() => handleOnAccept(event)}
+                    onDecline={handleOnDecline}
+                    event={event}
+                    onCompare={() => eventComparison(event)}
                 >
                     <View style={styles.modalTextContainer}>
                         <Text style={styles.modalText}>
@@ -61,7 +64,7 @@ export default function IndividualCategory(props) {
                             <Ionicons name="time-outline" size={15} color="purple" /> Date: {dateParser(event.startDate)}
                         </Text>
                         <Text style={styles.modalText}>
-                            <Ionicons name="time-outline" size={15} color="purple" /> Duration: 
+                            <Ionicons name="time-outline" size={15} color="purple" /> Duration:
                         </Text>
                         <Text style={styles.modalText}>
                             <Ionicons name="help" size={15} color="purple" /> Is this event wheelchair accessible? {event.wheelchairAccessible ? "Yes" : "No"}

@@ -1,22 +1,20 @@
 import BigIndividualCategory from "./BigIndividualCategory";
-import React, { useContext, useState, useEffect } from 'react';
-import {View} from 'react-native';
-import Modal from './popularEventModal';
-import { ModalContext } from '../Context/ModalContext';
+import React from 'react';
 
-export default function BigCategory({ events, user }) {
-    const { showModal } = useContext(ModalContext);
-    const BigIndividualCategories = events.map((event) => {
+export default function BigCategory({ events, handleDecline }) {
+    const BigIndividualCategories = events.map((event, index) => {
         return (
-                <BigIndividualCategory on
-                    key={event.id}
-                    imageUri={event.imageURL}
-                    event={event}
-                />
+            <BigIndividualCategory on
+                index={index}
+                imageUri={event.imageURL}
+                event={event}
+                handleDecline={handleDecline}
+            />
         )
     })
     return (
-        <>{BigIndividualCategories}
+        <>
+            {BigIndividualCategories}
         </>
     )
 } 

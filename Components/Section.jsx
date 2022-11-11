@@ -50,7 +50,6 @@ export default function Section(props) {
             setUsers(json.users);
         })
         getPopularEvents().then((json) => {
-            console.log(popularEvents.length)
             setPopularEvents(json.popularEvents);
         })
     }, [])
