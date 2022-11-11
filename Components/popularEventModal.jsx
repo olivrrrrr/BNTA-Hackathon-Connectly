@@ -5,13 +5,12 @@ import { ModalContext } from '../Context/ModalContext';
 
 export default function PopularModal(props) {
     let children = props.children;
-    let onAccept = props.onAccept;
     let onDecline = props.onDecline;
+    let onCompare = props.onCompare;
 
     const { containerStyle, textStyle, sectionStyle } = styles;
     const { toggleModal } = useContext(ModalContext);
     const { buttonText } = useContext(EventContext);
-    const { eventComparison } = useContext(EventContext);
 
     return (
         <Modal
@@ -30,8 +29,8 @@ export default function PopularModal(props) {
                         <Text style={textStyle}>
                             {children}
                         </Text>
-                        <Text style={textStyle}>{eventComparison ? buttonText : null }</Text>
-                        <Button onPress={onAccept} title="Accept" disabled={buttonText === 'you are already attending'}/>
+                        <Text style={textStyle}>{buttonText === false ? 'Would you like to attend?' : 'You are already attending'}</Text>
+                        <Button onPress={onCompare} title="Accept" disabled={buttonText} />
                         <Button onPress={onDecline} title="Decline" />
                     </View>
                 </View>

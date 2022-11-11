@@ -1,11 +1,11 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent } from '../Adaptors/BackendAdaptor';
+import { getAllEvents } from '../Adaptors/BackendAdaptor';
 
 export const EventContext = createContext(false);
 
 export const EventProvider = ({ children }) => {
     const [events, setEvents] = useState([]);
-    const [buttonText, setButtonText] = useState('Would you like to attend?');
+    const [buttonText, setButtonText] = useState(false);
 
     useEffect(() => {
         getAllEvents().then((json) => {
@@ -15,20 +15,23 @@ export const EventProvider = ({ children }) => {
 
     const removeEvent = (key) => {
         let tempEvents = events;
-        setEvents(tempEvents.slice(0, key).concat(tempEvents.slice(++key, tempEvents.length)))
-        console.log(key);
-    }
-
-    const handleOnAccept = (event) => {
-        !eventComparison ? setEvents(events.concat(event)) : setButtonText('you are already attending');
+        let newEvents = tempEvents.slice(0, key).concat(tempEvents.slice(++key, tempEvents.length))
+        setEvents(newEvents);
+        setButtonText(!buttonText)
     }
 
     const eventComparison = (event) => {
-        return events.filter(e => e.title === event.title)
+
+        if(!events.filter(e => e.title === event.title).length > 0) {
+            setEvents(events.concat(event));
+            setButtonText(!buttonText)
+        } else {
+            setButtonText(!buttonText)
+        }
     }
 
     return (
-        <EventContext.Provider value={{ events, handleOnAccept, removeEvent, buttonText, eventComparison }}>
+        <EventContext.Provider value={{ events, removeEvent, buttonText, eventComparison}}>
             {children}
         </EventContext.Provider>
     )
