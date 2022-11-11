@@ -15,10 +15,42 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TimeScreen from './TimeScreen';
 import { events } from '../../Mocks/Events';
-import { EventContext } from '../../Context/EventContext'
-import { useContext } from 'react';
+import { NewEventContext } from '../../Context/NewEventContext'
+import { useContext, useEffect } from 'react';
+import {specialEvents} from '../../Mocks/SpecialEvents'
+import { useState } from 'react';
 
 export default function CreateEventScreen({ navigation }) {
+
+    const { date, endDate } = useContext(NewEventContext)
+    const [ eventMatched, setEventMatched ] = useState(false)
+    const [ eventSentence, setEventSentence ] = useState('')
+    console.log('special events', specialEvents)
+
+    const dateCheck = (start, end) => {
+
+        // console.log('hello')
+        const eventStart = Date.parse(start)
+        const eventEnd = Date.parse(end)
+
+        for (const se of specialEvents){
+            const seStartDate = Date.parse(se.startDate)
+            const seEndDate = Date.parse(se.endDate)
+            if((seStartDate <= eventStart && eventStart <= seEndDate) || (seStartDate <= endDate && eventEnd <= seEndDate)) {
+                setEventMatched(true)
+                setEventSentence(se.eventSentence)
+                // console.log('eventMatched', eventMatched)
+                // console.log('eventSentence', eventSentence)
+                // console.log('se', se)
+                break
+
+            }
+        }
+    }
+
+    useEffect(() => {
+        dateCheck(date, endDate)
+    }, [date, endDate])
 
     return (
         // <TouchableOpacity onPress={() => navigation.navigate('Modal')}
@@ -31,6 +63,7 @@ export default function CreateEventScreen({ navigation }) {
                             <Icon name="chevron-right" />
                         </TouchableOpacity>
                     <Divider /> */}
+                    {eventMatched ? <Text style={styles.sentence}>{eventSentence}</Text> : ''}
                     <TextInput
                         placeholder='Title'
                         placeholderTextColor='gray'
@@ -144,5 +177,12 @@ const styles = StyleSheet.create({
       descriptionText: {
         fontSize: 25,
         color: 'gray'
+      },
+      sentence: {
+        padding: 20,
+        fontSize: 15,
+        textAlign: 'center',
+        backgroundColor: 'tomato',
+        fontStyle: 'italic'
       }
   });
