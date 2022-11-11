@@ -8,7 +8,7 @@ Connectly is our BNTA Hack for Change project. Connectly is a mobile application
 https://reactnative.dev/docs/environment-setup
 Please note that there are some bugs that affect the UI on android, this app is best on iOS
 
-##Planning
+## Planning
 
 Due to time restrictions, we collaborated asynchronously. We were able to achieve this by using tools such as Google Docs, Trello, Figma and Github. 
 
@@ -20,15 +20,15 @@ We used Trello to plan and delegate tasks to individuals: https://trello.com/inv
 We used Figma to design our Client-side UI/UX: 
 https://www.figma.com/file/B7cxtUlrhrSDrtPZI0Uq6X/Mood-Board
 
-##Client-side
+## Client-side
 
 Our client side was built using HTML, CSS and JavaScript. The library we used was React Native. 
 
-##Server-side
+## Server-side
 
 This was mocked. 
 
-##Authors
+## Authors
 Kun Zhang: https://github.com/imcalled 
 Jason Sum: https://github.com/jsum20 
 Anand Lakhani:  https://github.com/anandlakhani9 
