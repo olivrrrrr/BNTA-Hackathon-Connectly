@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     marginTop: 30,
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: '600',
     textAlign: 'center',
     color: 'tomato'
