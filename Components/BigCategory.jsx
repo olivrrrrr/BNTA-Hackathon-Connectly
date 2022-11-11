@@ -4,19 +4,23 @@ import {View} from 'react-native';
 import Modal from './popularEventModal';
 import { ModalContext } from '../Context/ModalContext';
 
-export default function BigCategory({ events, user }) {
+export default function BigCategory({ events, user, handleDecline }) {
     const { showModal } = useContext(ModalContext);
-    const BigIndividualCategories = events.map((event) => {
+    console.log(events)
+    const BigIndividualCategories = events.map((event, index) => {
+        console.log("event"+event)
         return (
                 <BigIndividualCategory on
-                    key={event.id}
+                    index={index}
                     imageUri={event.imageURL}
                     event={event}
+                    handleDecline={handleDecline}
                 />
         )
     })
     return (
-        <>{BigIndividualCategories}
+        <>
+        {BigIndividualCategories}
         </>
     )
 } 

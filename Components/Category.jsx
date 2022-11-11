@@ -1,13 +1,17 @@
 import IndividualCategory from "./IndividualCategory";
 
 export default function BigCategory({ popularEvents, user }) {
-    const IndividualCategories = popularEvents.map(event => {
+    const IndividualCategories = popularEvents.map((event, index) => {
         return (
-            <IndividualCategory on
-                key={event.id}
-                imageUri={event.imageURL}
-                event={event}
-            />)
+            <>
+                {console.log("index"+index)}
+                <IndividualCategory
+                    index={index}
+                    imageUri={event.imageURL}
+                    event={event}
+                />
+            </>
+        )
     })
     return (
         <>{IndividualCategories}</>
