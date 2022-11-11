@@ -18,7 +18,7 @@ export default function Header() {
   return (
     <View style={[themeStyles, styles.headerContainer]}>
       <Text style={[themeStyles, styles.headerTitle]}>
-        Our App name + logo
+        Connectly
       </Text>
     </View>
   )
@@ -39,5 +39,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
     textAlign: 'center',
+    color: 'tomato'
   }
 });
