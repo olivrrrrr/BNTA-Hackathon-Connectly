@@ -1,13 +1,13 @@
 export const popularEvents = [
     {
         id: 1,
-        title: "BNTA Social",
-        description: "BNTA Social led by social committee",
+        title: "Monthly Townhall",
+        description: "Townhall event to discuss quarterly progress and key upcoming events",
         attendees: [1, 2],
         organisers: [1],
         startDate: "2022-11-07T00:00:00.000+00:00",
         endDate: "2022-11-09T00:00:00.000+00:00",
-        tags: ["social", "work"],
+        tags: ["work"],
         wheelchairAccessible: true,
         cost: 10,
         isDrinking: true,
