@@ -6,6 +6,7 @@ export default function DateTimeCard ({ title, date, onChange }) {
         <Card elevation={0}>
                 <Card.Title
                 title={title}
+                titleVariant='titleLarge'
                 right={() =>
                  <View style={styles.view}>
                     <DateTimePicker
