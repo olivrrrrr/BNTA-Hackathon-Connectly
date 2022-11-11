@@ -28,7 +28,7 @@ export default function EventStack() {
                 animationType: 'slide',
                 presentation: 'transparent',
                 cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
-                headerLeft: ({navigation}) => (<Icon name='close' onPress={() => {}}/>),
+                headerLeft: ({navigation}) => (<Button title='Close' onPress={() => {}}/>),
                 headerRight: () => <Button title='Add'/>
                 }} /> 
 

@@ -42,6 +42,15 @@ export default function CreateEventScreen({ navigation }) {
                         keyboardType='default'
                     /> */}
 
+                    <TextInput
+                        placeholder='Description'
+                        placeholderTextColor='gray'
+                        style={styles.titleInput}
+                        keyboardType='default'
+                        multiline
+                        numberOfLines={5}
+                    />
+
                     <TouchableOpacity
                         style={styles.descriptionButton}
                         onPress={() => {navigation.navigate('Location')}} 
@@ -49,6 +58,22 @@ export default function CreateEventScreen({ navigation }) {
                         <Text style={styles.descriptionText}
                         >Location</Text>
                     </TouchableOpacity>
+
+                    <TimeScreen />
+
+                    <Card elevation={0} onPress={() => {navigation.navigate('Add tags')}}>
+                        <Card.Title
+                        title="Add tags"
+                        titleVariant='titleLarge'
+                        right={() => <IconButton icon="chevron-right"/>} />
+                    </Card>
+
+                    <Card elevation={0} onPress={() => {navigation.navigate('Event image')}}>
+                        <Card.Title
+                        title="Add image..."
+                        titleVariant='titleLarge'
+                        right={() => <IconButton icon="chevron-right" />} />
+                    </Card>
                     
                     {/* <TouchableOpacity
                         style={styles.descriptionButton}
@@ -79,33 +104,6 @@ export default function CreateEventScreen({ navigation }) {
                         titleVariant='titleLarge'
                         right={() => <IconButton icon="chevron-right" onPress={() => {navigation.navigate('Event location')}} />} />
                     </Card> */}
-                    
-                    <TimeScreen />
-
-                    <View style={{ borderColor:'gray'}}>
-                        <TextInput
-                            placeholder='Description'
-                            placeholderTextColor='gray'
-                            style={styles.titleInput}
-                            keyboardType='default'
-                            multiline
-                            numberOfLines={5}
-                        />
-                    </View>
-
-                    <Card elevation={0}>
-                        <Card.Title
-                        title="Tags"
-                        titleVariant='titleLarge'
-                        right={() => <IconButton icon="chevron-right" onPress={() => {navigation.navigate('Add tags')}} />} />
-                    </Card>
-
-                    <Card elevation={0}>
-                        <Card.Title
-                        title="Add image..."
-                        titleVariant='titleLarge'
-                        right={() => <IconButton icon="chevron-right" onPress={() => {navigation.navigate('Event image')}} />} />
-                    </Card>
                 
                 </ScrollView>
         // </TouchableOpacity>

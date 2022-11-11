@@ -9,6 +9,7 @@ const tags = [
 export default function TagsScreen({ navigation }) {
 
     const [search, setSearch] = useState('')
+    
     return (
         <SafeAreaView style={styles.safeAreaView}>
             <TextInput
