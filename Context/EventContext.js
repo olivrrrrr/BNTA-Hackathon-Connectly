@@ -5,6 +5,7 @@ export const EventContext = createContext(false);
 
 export const EventProvider = ({ children }) => {
     const [events, setEvents] = useState([]);
+    const [buttonText, setButtonText] = useState('Would you like to attend?');
 
     useEffect(() => {
         getAllEvents().then((json) => {
@@ -19,11 +20,15 @@ export const EventProvider = ({ children }) => {
     }
 
     const handleOnAccept = (event) => {
-        setEvents(events.concat(event));
+        !eventComparison ? setEvents(events.concat(event)) : setButtonText('you are already attending');
+    }
+
+    const eventComparison = (event) => {
+        return events.filter(e => e.title === event.title)
     }
 
     return (
-        <EventContext.Provider value={{ events, handleOnAccept, removeEvent }}>
+        <EventContext.Provider value={{ events, handleOnAccept, removeEvent, buttonText, eventComparison }}>
             {children}
         </EventContext.Provider>
     )

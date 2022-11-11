@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { View, Text, Modal, Button, TouchableOpacity } from 'react-native';
+import { EventContext } from "../Context/EventContext";
 import { ModalContext } from '../Context/ModalContext';
 
 export default function PopularModal(props) {
@@ -9,6 +10,9 @@ export default function PopularModal(props) {
 
     const { containerStyle, textStyle, sectionStyle } = styles;
     const { toggleModal } = useContext(ModalContext);
+    const { buttonText } = useContext(EventContext);
+    const { eventComparison } = useContext(EventContext);
+
     return (
         <Modal
             transparent={true}
@@ -26,8 +30,8 @@ export default function PopularModal(props) {
                         <Text style={textStyle}>
                             {children}
                         </Text>
-                        <Text style={textStyle}>Would you like to attend?</Text>
-                        <Button onPress={onAccept} title="Accept" />
+                        <Text style={textStyle}>{eventComparison ? buttonText : null }</Text>
+                        <Button onPress={onAccept} title="Accept" disabled={buttonText === 'you are already attending'}/>
                         <Button onPress={onDecline} title="Decline" />
                     </View>
                 </View>
