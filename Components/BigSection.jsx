@@ -1,17 +1,12 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import {
     Text,
     View,
     StyleSheet,
     ScrollView,
-    Pressable,
 } from 'react-native';
 
 import { ThemeContext } from '../Context/ThemeContext';
-import { getAllUsers, getAllEvents, getEventById, getUserById, postUser, postEvent } from '../Adaptors/BackendAdaptor';
-import BigIndividualCategory from './BigIndividualCategory';
-import User from '../Classes/User'
-import Event from '../Classes/Event'
 import BigCategory from './BigCategory';
 import { EventContext } from '../Context/EventContext';
 
@@ -19,7 +14,6 @@ import { EventContext } from '../Context/EventContext';
 export default function BigSection(props) {
     const { title } = props;
 
-    // const [events, setEvents] = useState([])
     const [users, setUsers] = useState([]);
     const { toggle } = useContext(ThemeContext);
 
@@ -78,7 +72,7 @@ export default function BigSection(props) {
                     showsHorizontalScrollIndicator={false}
                 >
 
-                    <BigCategory user={users} events={events} handleDecline={removeEvent}/>
+                    <BigCategory user={users} events={events} handleDecline={removeEvent} />
                     {/* <BigIndividualCategory
                         imageUri={require('../Images/townhall.jpeg')}
                         users={users}

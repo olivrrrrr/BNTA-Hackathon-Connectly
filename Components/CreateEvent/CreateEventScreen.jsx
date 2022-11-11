@@ -43,7 +43,10 @@ export default function CreateEventScreen({ navigation }) {
                 // console.log('eventSentence', eventSentence)
                 // console.log('se', se)
                 break
-
+            }
+            else {
+                setEventMatched(false)
+                setEventSentence('')
             }
         }
     }

@@ -31,7 +31,7 @@ export const users =
             wheelchairAccessible: false,
             cost: 5,
             isDrinking: false,
-            imageURL: require('../Images/football.webp')
+            imageURL: require('../Images/football.png')
         }
         ]
     },
@@ -53,7 +53,7 @@ export const users =
             wheelchairAccessible: false,
             cost: 5,
             isDrinking: false,
-            imageURL: require('../Images/football.webp')
+            imageURL: require('../Images/football.png')
         }]
     },
     {

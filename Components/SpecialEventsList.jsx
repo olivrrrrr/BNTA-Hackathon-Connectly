@@ -7,10 +7,7 @@ import {
 } from 'react-native';
 
 import { ThemeContext } from '../Context/ThemeContext';
-import { getAllUsers, getAllSpecialEvents, getEventById, getUserById, postUser, postEvent } from '../Adaptors/BackendAdaptor';
-import User from '../Classes/User'
-import Event from '../Classes/Event'
-import SpecialIndividualEvent from './SpecialIndividualEvent';
+import { getAllUsers, getAllSpecialEvents } from '../Adaptors/BackendAdaptor';
 import SpecialIndividualEvents from './SpecialIndividualEvents';
 
 
@@ -44,19 +41,19 @@ export default function Section(props) {
                 {title}
             </Text>
             <View style={{ height: 150, marginTop: 10 }}>
-                <ScrollView 
+                <ScrollView
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                 >
-                    <SpecialIndividualEvents specialEvents={specialEvents} user={users}/>
+                    <SpecialIndividualEvents specialEvents={specialEvents} user={users} />
                 </ScrollView>
 
             </View>
         </View>
     ) :
-    (
-        <Text>Loading..</Text>
-    );
+        (
+            <Text>Loading..</Text>
+        );
 }
 
 const styles = StyleSheet.create({
