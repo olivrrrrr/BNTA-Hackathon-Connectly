@@ -1,7 +1,7 @@
 import { TextInput, Button, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function EventNameScreen({ navigation }) {
+export default function EventDescriptionScreen({ navigation }) {
     return (
         <SafeAreaView style={styles.safeAreaView}>
             <TextInput
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start' 
     },
     input: {
-        height: 40,
+        height: 200,
         margin: 12,
         borderWidth: 1,
         padding: 10,

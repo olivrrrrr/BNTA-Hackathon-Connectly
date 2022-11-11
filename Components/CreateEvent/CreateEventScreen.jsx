@@ -1,86 +1,119 @@
 import {
+    TextInput,
     Text,
     View,
     StyleSheet,
     Touchable,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    Button
   } from 'react-native';
-import { Card, Title, Divider, IconButton} from 'react-native-paper'
+import { Card, IconButton} from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import TimeScreen from './TimeScreen';
 
-export default function CreateEventHeader({ navigation }) {
+export default function CreateEventScreen({ navigation }) {
 
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('Modal')}
-            style={styles.touchableOpacity}>
-            <SafeAreaView>
+        // <TouchableOpacity onPress={() => navigation.navigate('Modal')}
+        //     style={styles.touchableOpacity}>
+            // <SafeAreaView>
                 <ScrollView style={styles.scrollView}>
-                    <Text style={styles.headerTitle}>Create Event</Text>
-
                     {/* <Divider />
                         <TouchableOpacity style={styles.buttonWrapper}>
                             <Text style={styles.buttonText}>Event Name</Text>
                             <Icon name="chevron-right" />
                         </TouchableOpacity>
                     <Divider /> */}
-                    <Card>
-                        <Card.Title
-                        title='Event name'
-                        titleVariant='titleLarge'
-                        right={() => <IconButton icon="chevron-right" onPress={() => {navigation.navigate('EventNameScreen')}} />} />
-                    </Card>
+                    <TextInput
+                        placeholder='Title'
+                        placeholderTextColor='gray'
+                        style={styles.titleInput}
+                        keyboardType='default'
+                        />
+                    
+                    {/* <TextInput
+                        placeholder='Add location'
+                        placeholderTextColor='gray'
+                        style={styles.titleInput}
+                        keyboardType='default'
+                    /> */}
 
-                    <Card>
-                        <Card.Title
-                        title='Description'
-                        titleVariant='titleLarge'
-                        right={() => <IconButton icon="chevron-right" onPress={() => {}} />} />
-                    </Card>
+                    <TouchableOpacity
+                        style={styles.descriptionButton}
+                        onPress={() => {navigation.navigate('Location')}} 
+                        >
+                        <Text style={styles.descriptionText}
+                        >Location</Text>
+                    </TouchableOpacity>
+                    
+                    {/* <TouchableOpacity
+                        style={styles.descriptionButton}
+                        onPress={() => {}} 
+                        >
+                        <Text style={styles.descriptionText}
+                        onPress={() => {navigation.navigate('Event description')}}
+                        >Description</Text>
+                    </TouchableOpacity> */}
 
-                    <Card>
+                   {/* <Card elevation={0}>
                         <Card.Title
-                        title='Location'
+                        title='Add event name'
                         titleVariant='titleLarge'
-                        right={() => <IconButton icon="chevron-right" onPress={() => {}} />} />
-                    </Card>
+                        right={() => <IconButton icon="chevron-right" onPress={() => {navigation.navigate('Event name')}} />} />
+                    </Card> */}
 
-                    <Card>
+                    {/* <Card elevation={0}>
                         <Card.Title
-                        title="Time"
+                        title='Add description'
                         titleVariant='titleLarge'
-                        right={() => <IconButton icon="chevron-right" onPress={() => {}} />} />
-                    </Card>
+                        right={() => <IconButton icon="chevron-right" onPress={() => {navigation.navigate('Event description')}} />} />
+                    </Card> */}
 
-                    <Card>
+                    {/* <Card elevation={0}>
+                        <Card.Title
+                        title='Add location'
+                        titleVariant='titleLarge'
+                        right={() => <IconButton icon="chevron-right" onPress={() => {navigation.navigate('Event location')}} />} />
+                    </Card> */}
+                    
+                    <TimeScreen />
+
+                    <View style={{ borderColor:'gray'}}>
+                        <TextInput
+                            placeholder='Description'
+                            placeholderTextColor='gray'
+                            style={styles.titleInput}
+                            keyboardType='default'
+                            multiline
+                            numberOfLines={5}
+                        />
+                    </View>
+
+                    <Card elevation={0}>
                         <Card.Title
                         title="Tags"
                         titleVariant='titleLarge'
-                        right={() => <IconButton icon="chevron-right" onPress={() => {}} />} />
+                        right={() => <IconButton icon="chevron-right" onPress={() => {navigation.navigate('Add tags')}} />} />
                     </Card>
 
-                    <Card>
+                    <Card elevation={0}>
                         <Card.Title
-                        title="Image"
+                        title="Add image..."
                         titleVariant='titleLarge'
-                        right={() => <IconButton icon="chevron-right" onPress={() => {}} />} />
+                        right={() => <IconButton icon="chevron-right" onPress={() => {navigation.navigate('Event image')}} />} />
                     </Card>
                 
                 </ScrollView>
-            </SafeAreaView>
-        </TouchableOpacity>
+        // </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     scrollView: {},
-    headerContainer: {
-        height: 60,
-        padding: 15,
-    },
     headerTitle: {
       fontSize: 24,
       fontWeight: '600',
@@ -96,5 +129,19 @@ const styles = StyleSheet.create({
       },
       buttonText: {
         fontSize: 20
+      },
+      titleInput: {
+        padding: 20,
+        fontSize: 25
+      },
+      descriptionButton: {
+        justifyContent: 'flex-start',
+        flex: 1,
+        flexDirection: 'row',
+        padding: 20
+      },
+      descriptionText: {
+        fontSize: 25,
+        color: 'gray'
       }
   });

@@ -1,13 +1,22 @@
+import { useState } from "react";
 import { TextInput, Button, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function EventNameScreen({ navigation }) {
+const tags = [
+    'tech', 'women', 'religious', 'mental health', 'wellbeing'
+]
+
+export default function TagsScreen({ navigation }) {
+
+    const [search, setSearch] = useState('')
     return (
         <SafeAreaView style={styles.safeAreaView}>
             <TextInput
                 style={styles.input}
                 // value={text}
-                placeholder="Add event name"
+                placeholder="Search tags"
+                placeholderTextColor='gray'
+                onChangeText={(input) => {setSearch(input)}}
             />
         </SafeAreaView>
     )

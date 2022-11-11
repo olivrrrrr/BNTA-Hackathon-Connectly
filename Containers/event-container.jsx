@@ -14,11 +14,11 @@ import CreateEventScreen from '../Components/CreateEvent/CreateEventScreen'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function EventContainer({navigation}) {
-
-const CreateEventStack = createStackNavigator();
     
     return(
-        <TouchableOpacity onPress={() => navigation.navigate('Modal')}
+        // <View style={{flex:1}}/>
+
+        <TouchableOpacity onPress={() => navigation.navigate('New Event')}
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text style={{ fontSize: 24 }}>Press Me to create an Event</Text>
         </TouchableOpacity>

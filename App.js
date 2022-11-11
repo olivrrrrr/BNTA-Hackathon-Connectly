@@ -87,9 +87,20 @@ const App = () => {
 
         <Tab.Screen name={homeName} component={HomeContainer} />
         <Tab.Screen name={calenderName} component={CalendarContainer} />
+        {/* <Tab.Group screenOptions={{ presentation: 'modal' }}> */}
+          {/* <Tab.Screen name={createEventName} component={EventStack}
+            listeners={({navigation}) => ({
+              tabPress: event => {
+                event.preventDefault()
+                navigation.navigate('Modal')
+              }
+            })}
+            /> */}
+        {/* </Tab.Group> */}
         <Tab.Screen name={createEventName} component={EventStack} />
         <Tab.Screen name={notificationsName} component={NotificationsContainer} />
         <Tab.Screen name={chatName} component={ChatContainer} />
+
 
       </Tab.Navigator>
     </NavigationContainer>

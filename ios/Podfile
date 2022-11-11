@@ -26,11 +26,6 @@ target 'HackForChange' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'HackForChangeTests' do
-    inherit! :complete
-    # Pods for testing
-  end
-
   post_install do |installer|
     react_native_post_install(
       installer,
@@ -40,4 +35,10 @@ target 'HackForChange' do
     )
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
+
+  # pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec'
+  # target 'HackForChangeTests' do
+  #   inherit! :complete
+  #   # Pods for testing
+  # end
 end
