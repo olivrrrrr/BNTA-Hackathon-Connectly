@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { TextInput, Button, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { NewEventContext } from '../../Context/NewEventContext';
+import { useContext } from 'react';
 
 export default function LocationScreen({ navigation }) {
+
+    const { setLocation } = useContext(NewEventContext)
+    
     return (
         <SafeAreaView style={styles.safeAreaView}>
             <TextInput
@@ -11,6 +16,7 @@ export default function LocationScreen({ navigation }) {
                 // value={text}
                 placeholder="Search"
                 placeholderTextColor='gray'
+                onChangeText={(newText) => setLocation(newText)}
             />
             {/* <GooglePlacesInput /> */}
         </SafeAreaView>

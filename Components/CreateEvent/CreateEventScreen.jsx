@@ -14,6 +14,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TimeScreen from './TimeScreen';
+import { events } from '../../Mocks/Events';
+import { EventContext } from '../../Context/EventContext'
+import { useContext } from 'react';
 
 export default function CreateEventScreen({ navigation }) {
 

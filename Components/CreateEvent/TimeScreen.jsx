@@ -3,10 +3,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState } from 'react';
 import DateTimeCard from "./DateTimeCard";
 import { Card } from 'react-native-paper'
+import { NewEventContext } from '../../Context/NewEventContext';
+import { useContext } from 'react';
 
 export default function TimeScreen({ navigation }) {
 
-    const [date, setDate] = useState(new Date(1598051730000));
+    const { date, endDate, setDate, setEndDate } = useContext(NewEventContext)
+
+
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
     
@@ -14,6 +18,12 @@ export default function TimeScreen({ navigation }) {
         const currentDate = selectedDate;
         setShow(false);
         setDate(currentDate);
+    };
+
+    const onChangeEnd = (event, selectedDate) => {
+        const currentDate = selectedDate;
+        setShow(false);
+        setEndDate(currentDate);
     };
     
     const showMode = (currentMode) => {
@@ -48,7 +58,7 @@ export default function TimeScreen({ navigation }) {
                 />
             </Card> */}
             <DateTimeCard title={'Starts'} date={date} onChange={onChange}/>
-            <DateTimeCard title={'Ends'} date={date} onChange={onChange}/>
+            <DateTimeCard title={'Ends'} date={endDate} onChange={onChangeEnd}/> 
         </SafeAreaView>
     );
     };

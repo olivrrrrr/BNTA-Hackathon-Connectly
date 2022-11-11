@@ -3,10 +3,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState } from 'react'
 import ImagePicker from 'react-native-image-picker'
 import {launchImageLibrary} from 'react-native-image-picker'
+import { NewEventContext } from '../../Context/NewEventContext';
+import { useContext } from 'react';
 
 export default function ImageScreen({ navigation }) {
     
-    const [photo, setPhoto] = useState(null)
+    const { photo, setPhoto } = useContext(NewEventContext)
+    // const [photo, setPhoto] = useState(null)
     const ImagePicker = require('react-native-image-picker');
 
     handleChoosePhoto = () => {

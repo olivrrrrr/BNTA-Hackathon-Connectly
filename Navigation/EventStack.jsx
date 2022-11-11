@@ -11,10 +11,44 @@ import TimeScreen from "../Components/CreateEvent/TimeScreen"
 import TagsScreen from "../Components/CreateEvent/TagsScreen"
 import ImageScreen from "../Components/CreateEvent/ImageScreen"
 import Icon from "react-native-vector-icons/AntDesign";
-
-const Stack = createStackNavigator();
+import { NewEventContext } from '../Context/NewEventContext'
+import { EventContext } from "../Context/EventContext";
+import { useContext } from 'react';
 
 export default function EventStack() {
+
+    const Stack = createStackNavigator();
+    const { events, setEvents} = useContext(EventContext)
+    const { title, description, location, date,endDate,tags} = useContext(NewEventContext)
+
+    const dateParser = (date) => {
+        return date.split('T')[0];
+    }
+
+    const handleOnAccept = () => {
+        const newEvent = {
+            "id": events.length+1,
+            "attendees": [],
+            "organisers": [1],
+            "wheelchairAccessible": true,
+            "cost": 10,
+            "isDrinking": false,
+            "title": title,
+            "description": description,
+            "location": location,
+            "startDate": "2022-11-15T00:00:00.000+00:0",
+            "endDate": "2022-11-15T00:00:00.000+00:0",
+            "tags": [tags],
+            "imageURL": require('../Images/football.webp')
+            // imageURL: photo
+        }
+        const temp = [...events]
+        temp.push(newEvent)
+        console.log('temp', temp)
+        console.log('handle on accept', events)
+        setEvents(temp);
+    }
+
     return (
         // <ModalContainer/>
         <Stack.Navigator>
@@ -29,7 +63,9 @@ export default function EventStack() {
                 presentation: 'transparent',
                 cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
                 headerLeft: ({navigation}) => (<Button title='Close' onPress={() => {}}/>),
-                headerRight: () => <Button title='Add'/>
+                headerRight: () => <Button title='Add'
+                                        onPress={() => handleOnAccept()
+                                        }/>
                 }} /> 
 
             <Stack.Screen name='Event name' component={EventNameScreen}
@@ -66,7 +102,7 @@ export default function EventStack() {
                     presentation: 'transparent',
                     cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
                     headerLeft: () => {},
-                    headerRight: () => <Button title="Cancel" onPress={() => navigation.goBack()} />
+                    headerRight: () => <Button title="Add" onPress={() => navigation.goBack()} />
                 })}
                 />
 
