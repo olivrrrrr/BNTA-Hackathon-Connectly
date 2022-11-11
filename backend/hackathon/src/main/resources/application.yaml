@@ -1,0 +1,8 @@
+server:
+  port: 8080
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://lukef:Rlyf6jzNYt36ddfz@cluster0.idvqx.mongodb.net/?retryWrites=true&w=majority
+      database: pending-moderation-hackathon
