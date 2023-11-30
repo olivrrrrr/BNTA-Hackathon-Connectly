@@ -1,5 +1,7 @@
 # Bright Network Hack-for-Change Hackathon by Pending Moderation
 
+![ezgif com-video-to-gif](https://github.com/olivrrrrr/BNTA-Hackathon/assets/68692361/017caade-ec5c-4870-9919-848700b6969c)
+
 ## Problem Statement
 
 Connectly is our BNTA Hack for Change project. Connectly is a mobile application that allows users to ***network, play and create community*** within their respective places of work. The objective of Connectly was to create an event planning platform that focuses on improving ***inclusivity and diversity*** within the workplace by allowing users to see all internal events at a given company as well as providing contextual recommendations for religious / cultural days. 
