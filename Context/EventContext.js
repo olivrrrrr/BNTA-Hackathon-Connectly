@@ -23,7 +23,7 @@ export const EventProvider = ({ children }) => {
     }
 
     return (
-        <EventContext.Provider value={{ events, handleOnAccept, removeEvent }}>
+        <EventContext.Provider value={{ events, setEvents, handleOnAccept, removeEvent }}>
             {children}
         </EventContext.Provider>
     )

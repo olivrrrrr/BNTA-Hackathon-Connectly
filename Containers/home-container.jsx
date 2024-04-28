@@ -9,7 +9,7 @@ import {
 import { ThemeContext } from '../Context/ThemeContext';
 import BigSection from '../Components/BigSection';
 import Section from '../Components/Section';
-import SpecialSection from '../Components/SpecialSection';
+import SpecialSection from '../Components/SpecialEventsList';
 
 export default function HomeContainer({ navigation }) {
     const { toggle } = useContext(ThemeContext);
